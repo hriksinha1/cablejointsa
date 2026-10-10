@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Phone, MapPin, Mail, Clock } from "lucide-react";
+import { Phone, MapPin, ExternalLink } from "lucide-react";
 import { Logo } from "../ui/Logo";
 import { SocialLinks } from "../ui/SocialLinks";
 import { Dialog } from "../ui/Dialog";
 import { PageContainer } from "./PageContainer";
 import { siteContent } from "../../data/siteContent";
+import { buildTelHref, buildMapsUrl } from "../../utils/contact";
 
 export function Footer() {
   const [legalModal, setLegalModal] = useState(null); // 'privacy' | 'terms' | null
+
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
+  const mapsUrl = buildMapsUrl(siteContent.contact.address.full);
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative bg-white pt-16 sm:pt-20 border-t border-[#E1E5EB] overflow-hidden">
@@ -18,7 +23,7 @@ export function Footer() {
           <div className="flex flex-col gap-4">
             <Logo />
             <p className="text-[14px] text-[#5B6475] leading-relaxed max-w-sm">
-              Electrical services for homes and businesses, from quick repairs to new installations, delivering safety and quality craftsmanship.
+              {siteContent.footer.description}
             </p>
             <div className="pt-2">
               <SocialLinks variant="footer" />
@@ -33,107 +38,112 @@ export function Footer() {
             <nav aria-label="Footer Navigation" className="flex flex-col gap-2.5 text-[14px] text-[#5B6475]">
               <a
                 href="#home"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
               >
                 Home
               </a>
               <a
-                href="#services"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
-              >
-                Services
-              </a>
-              <a
                 href="#about"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
               >
                 About Us
               </a>
               <a
-                href="#blog"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                href="#services"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
               >
-                Our Blog
+                Services
               </a>
               <a
-                href="#contact"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                href="#blog"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
               >
-                Contact Us
+                Insights
               </a>
               <a
                 href="#faq"
-                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
               >
                 FAQs
+              </a>
+              <a
+                href="#contact"
+                className="hover:text-[#1858DE] transition-colors w-fit focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
+              >
+                Contact
               </a>
             </nav>
           </div>
 
-          {/* Col 3: Contact Us */}
+          {/* Col 3: Contact */}
           <div className="flex flex-col gap-4">
             <h4 className="font-display text-[20px] tracking-wider text-[#14295C] uppercase">
-              Contact Us
+              Contact
             </h4>
             <ul className="flex flex-col gap-3 text-[14px] text-[#5B6475]">
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-[#1858DE] shrink-0 mt-1" aria-hidden="true" />
                 <a
-                  href={siteContent.contact.phoneTel}
-                  className="hover:text-[#1858DE] transition-colors font-medium text-[#14295C]"
+                  href={phoneHref}
+                  className="hover:text-[#1858DE] transition-colors font-semibold text-[#14295C] tabular-nums min-h-[32px] flex items-center"
                 >
                   {siteContent.contact.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-[#1858DE] shrink-0 mt-1" aria-hidden="true" />
-                <span className="leading-snug">{siteContent.contact.address}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-[#1858DE] shrink-0 mt-1" aria-hidden="true" />
-                <a
-                  href={`mailto:${siteContent.contact.email}`}
-                  className="hover:text-[#1858DE] transition-colors break-all"
-                >
-                  {siteContent.contact.email}
-                </a>
+                <div className="flex flex-col gap-1">
+                  <span className="leading-snug text-[#303746]">
+                    {siteContent.contact.address.full}
+                    <span aria-hidden="true" className="ml-1.5 select-none">
+                      🇸🇦
+                    </span>
+                  </span>
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#1858DE] hover:text-[#1348B8] transition-colors w-fit mt-0.5"
+                  >
+                    <span>Open in Google Maps</span>
+                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Working Hours */}
+          {/* Col 4: Follow Us (Replacing working hours) */}
           <div className="flex flex-col gap-4">
             <h4 className="font-display text-[20px] tracking-wider text-[#14295C] uppercase">
-              Working Hours
+              Follow Us
             </h4>
-            <ul className="flex flex-col gap-2.5 text-[14px] text-[#5B6475]">
-              {siteContent.workingHours.map((slot, index) => (
-                <li key={index} className="flex justify-between items-center border-b border-[#E1E5EB]/60 pb-2">
-                  <span className="font-medium text-[#14295C]">{slot.day}</span>
-                  <span>{slot.hours}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="text-[14px] text-[#5B6475] leading-relaxed">
+              Connect with our team online for project updates and company information.
+            </p>
+            <div className="pt-1">
+              <SocialLinks showLabels={true} />
+            </div>
           </div>
         </div>
 
         {/* Bottom Sub-bar */}
         <div className="py-6 border-t border-[#E1E5EB] flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[#5B6475]">
-          <p>© 2026 Cablejointsa. All rights reserved.</p>
+          <p>© {currentYear} {siteContent.footer.copyright}</p>
           <div className="flex items-center gap-6">
             <button
               type="button"
               onClick={() => setLegalModal("privacy")}
-              className="hover:text-[#1858DE] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+              className="hover:text-[#1858DE] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
             >
               Privacy Policy
             </button>
             <button
               type="button"
               onClick={() => setLegalModal("terms")}
-              className="hover:text-[#1858DE] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+              className="hover:text-[#1858DE] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[32px] flex items-center"
             >
-              Terms
+              Terms of Service
             </button>
           </div>
         </div>
@@ -153,15 +163,20 @@ export function Footer() {
       <Dialog
         isOpen={legalModal === "privacy"}
         onClose={() => setLegalModal(null)}
-        title="Privacy Policy (Demo Notice)"
+        title="Privacy Notice (Demonstration Site)"
       >
-        <div className="space-y-4">
+        <div className="space-y-4 text-[14px] text-[#303746] leading-relaxed">
           <p>
-            This website is a demonstration landing page for Cablejointsa.
-            No personal data submitted via the inquiry form is transmitted to third-party tracking services or stored permanently on external servers.
+            This website is currently operated as a demonstration and portfolio site for Cablejointsa in Riyadh, Saudi Arabia.
           </p>
           <p>
-            When configuring this application for production use, replace this notice with your business&apos;s formal privacy policy governing customer data protection and communications.
+            Information submitted through the online enquiry form is captured in demo mode and is not transmitted to external third-party marketing databases or tracking platforms.
+          </p>
+          <p>
+            For actual service enquiries and direct communication, please contact the business directly at{" "}
+            <a href={phoneHref} className="text-[#1858DE] underline font-semibold">
+              {siteContent.contact.phoneDisplay}
+            </a>.
           </p>
         </div>
       </Dialog>
@@ -170,14 +185,14 @@ export function Footer() {
       <Dialog
         isOpen={legalModal === "terms"}
         onClose={() => setLegalModal(null)}
-        title="Terms of Service (Demo Notice)"
+        title="Terms of Use (Demonstration Site)"
       >
-        <div className="space-y-4">
+        <div className="space-y-4 text-[14px] text-[#303746] leading-relaxed">
           <p>
-            All content, statistics, ratings, and quotes presented on this site are sample demonstration assets intended for layout presentation.
+            All content and design assets presented on this landing page are intended to illustrate the services and capabilities of Cablejointsa.
           </p>
           <p>
-            For actual electrical services, terms of engagement, warranties, and service agreements should be tailored to your jurisdiction and verified business specifications.
+            Work scopes, pricing, timing, and agreements for residential or commercial electrical work in Riyadh are determined through direct consultation and confirmed with the client prior to commencing any work.
           </p>
         </div>
       </Dialog>

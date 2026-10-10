@@ -1,6 +1,7 @@
 /**
  * Services data for Cablejointsa.
  * Descriptions are practical and neutral without unsupported licensing/guarantee claims.
+ * Safety inspections are marked for owner confirmation and phrased carefully around discussing concerns.
  */
 
 export const services = [
@@ -10,12 +11,14 @@ export const services = [
     tabLabel: "[01] Residential Electrical Services",
     title: "Residential Electrical Services",
     shortDescription:
-      "Comprehensive electrical solutions for modern homes, from panel upgrades to light fixtures and dedicated appliance circuits.",
+      "Enquire about electrical work in your home: lighting, sockets, switches, wiring faults or planned upgrades.",
     longDescription:
-      "We handle everything from new lighting installations to troubleshooting breakers and adding dedicated circuits in your home. Our technicians work cleanly, test all connections thoroughly, and keep you informed at every step.",
+      "Enquire about electrical work in your home: lighting, sockets, switches, wiring faults or planned upgrades. We work carefully to diagnose issues and keep your living spaces tidy.",
+    commonEnquiries: "lighting and sockets · tripping circuits · upgrades",
     icon: "Home",
     imageSlot: "service1",
-    ctaLabel: "Learn More",
+    ctaLabel: "Ask About Home Electrical Work",
+    needsOwnerConfirmation: false,
   },
   {
     id: "commercial",
@@ -23,12 +26,14 @@ export const services = [
     tabLabel: "[02] Commercial Electrical Services",
     title: "Commercial Electrical Services",
     shortDescription:
-      "Power distribution, commercial lighting, and electrical system support tailored to offices, retail stores, and commercial facilities.",
+      "Electrical support for shops, offices and commercial premises in Riyadh with power distribution and lighting.",
     longDescription:
-      "Commercial environments demand reliable power distribution and strict compliance. We assist with switchboards, branch circuits, LED retrofits, and scheduled operational maintenance to keep your facility running smoothly.",
+      "Electrical support for shops, offices and commercial premises in Riyadh. We help with distribution boards, branch circuits, lighting maintenance and power reliability for your daily operations.",
+    commonEnquiries: "distribution boards · retail lighting · power reliability",
     icon: "Building2",
     imageSlot: "service2",
-    ctaLabel: "Learn More",
+    ctaLabel: "Ask About Commercial Work",
+    needsOwnerConfirmation: false,
   },
   {
     id: "repair-maintenance",
@@ -36,12 +41,14 @@ export const services = [
     tabLabel: "[03] Electrical Repair & Maintenance",
     title: "Electrical Repair & Maintenance",
     shortDescription:
-      "Diagnostics, component replacements, and preventative maintenance for recurring power interruptions or equipment faults.",
+      "Systematic troubleshooting for recurring breaker trips, faulty switches, hot outlets and unexpected power loss.",
     longDescription:
-      "When outlets spark, circuits trip unexpectedly, or switches stop responding, systematic diagnosis is essential. We locate root causes quickly, replace worn parts with quality components, and verify system integrity.",
+      "Systematic troubleshooting for recurring breaker trips, faulty switches, hot outlets and unexpected power loss. We locate faults methodically and replace damaged components to restore safe operation.",
+    commonEnquiries: "tripping breakers · faulty switches · power loss",
     icon: "Wrench",
     imageSlot: "service3",
-    ctaLabel: "Learn More",
+    ctaLabel: "Ask About Repairs & Maintenance",
+    needsOwnerConfirmation: false,
   },
   {
     id: "wiring-rewiring",
@@ -49,12 +56,14 @@ export const services = [
     tabLabel: "[04] Wiring & Rewiring",
     title: "Wiring & Rewiring Services",
     shortDescription:
-      "Partial and full property rewiring, code updates, sub-panel feeds, and low-voltage cabling runs.",
+      "Partial or full wiring additions, circuit replacements, sub-panel feeds and dedicated high-demand lines.",
     longDescription:
-      "Old or degraded wiring can pose significant risks. We replace deteriorating knob-and-tube or aluminum runs, pull new grounded circuits for modern electrical loads, and organize clean, properly protected junction boxes.",
+      "Partial or full wiring additions, replacement of degraded circuits, sub-panel feeds and new dedicated lines for high-demand appliances in residential or commercial properties.",
+    commonEnquiries: "circuit additions · high-demand lines · older wiring",
     icon: "Cpu",
     imageSlot: "service4",
-    ctaLabel: "Learn More",
+    ctaLabel: "Ask About Wiring & Rewiring",
+    needsOwnerConfirmation: false,
   },
   {
     id: "safety-inspections",
@@ -62,11 +71,13 @@ export const services = [
     tabLabel: "[05] Electrical Safety Inspections",
     title: "Electrical Safety Inspections",
     shortDescription:
-      "Thorough multi-point inspections evaluating grounding, load calculations, surge protection, and panel health.",
+      "Discuss safety concerns with our team to evaluate breaker panels, grounding, protection devices and wiring condition.",
     longDescription:
-      "Ensure your home or commercial building meets safety guidelines. Our comprehensive evaluations identify potential hazards, check GFCI and AFCI devices, examine earthing rods, and provide a clear written overview of findings.",
+      "Discuss safety concerns with our team to evaluate breaker panels, grounding, protection devices and visible wiring condition, identifying potential hazards before they cause disruption.",
+    commonEnquiries: "panel health · grounding checks · safety evaluations",
     icon: "ShieldCheck",
     imageSlot: "service5",
-    ctaLabel: "Learn More",
+    ctaLabel: "Discuss Electrical Safety",
+    needsOwnerConfirmation: true,
   },
 ];

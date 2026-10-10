@@ -7,15 +7,16 @@ import {
   AlertCircle,
   CheckCircle2,
   Loader2,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "../ui/Button";
 import { SectionHeading } from "../ui/SectionHeading";
 import { ContactInfoCard } from "../ui/ContactInfoCard";
-import { SocialLinks } from "../ui/SocialLinks";
 import { PageContainer } from "../layout/PageContainer";
 import { siteContent } from "../../data/siteContent";
 import { services } from "../../data/services";
 import { mockApi } from "../../services/mockApi";
+import { buildTelHref, buildMapsUrl, isValidPhone } from "../../utils/contact";
 
 export function ContactSection({ preselectedServiceId }) {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ export function ContactSection({ preselectedServiceId }) {
   const [touched, setTouched] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionResult, setSubmissionResult] = useState(null); // { ok: true, referenceId: 'DEMO-1234' }
+  const [submissionResult, setSubmissionResult] = useState(null);
   const [serverError, setServerError] = useState(null);
 
   const nameInputRef = useRef(null);
@@ -39,7 +40,11 @@ export function ContactSection({ preselectedServiceId }) {
   const messageInputRef = useRef(null);
   const successRef = useRef(null);
 
-  // Sync when prop changes
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
+  const mapsUrl = buildMapsUrl(siteContent.contact.address.full);
+  const isDemo = siteContent.forms?.deliveryMode === "demo";
+
+  // Sync when preselectedServiceId prop changes
   React.useEffect(() => {
     if (preselectedServiceId) {
       setFormData((prev) => ({ ...prev, service: preselectedServiceId }));
@@ -50,31 +55,32 @@ export function ContactSection({ preselectedServiceId }) {
     switch (name) {
       case "name":
         if (!value || value.trim().length < 2) {
-          return "Full name must be at least 2 characters.";
+          return "Please enter your name.";
+        }
+        return null;
+      case "phone":
+        if (!value || !isValidPhone(value)) {
+          return "Enter a phone number we can call, for example 05XXXXXXXX.";
         }
         return null;
       case "email": {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!value || !emailRegex.test(value.trim())) {
-          return "Please enter a valid email address.";
+        if (!value || value.trim().length === 0) {
+          return null; // optional
         }
-        return null;
-      }
-      case "phone": {
-        const digits = (value || "").replace(/\D/g, "");
-        if (digits.length < 7 || digits.length > 15) {
-          return "Please enter a valid phone number (7 to 15 digits).";
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value.trim())) {
+          return "That email address doesn't look right.";
         }
         return null;
       }
       case "service":
         if (!value || value === "") {
-          return "Please select a service.";
+          return "Choose the service you need.";
         }
         return null;
       case "message":
         if (!value || value.trim().length < 10) {
-          return "Message must be at least 10 characters.";
+          return "Add a few details about the work (at least 10 characters).";
         }
         return null;
       default:
@@ -102,9 +108,9 @@ export function ContactSection({ preselectedServiceId }) {
     e.preventDefault();
     setServerError(null);
 
-    // Validate all
+    // Validate all fields
     const newErrors = {};
-    Object.keys(formData).forEach((key) => {
+    ["name", "phone", "email", "service", "message"].forEach((key) => {
       const err = validateField(key, formData[key]);
       if (err) newErrors[key] = err;
     });
@@ -118,11 +124,11 @@ export function ContactSection({ preselectedServiceId }) {
       message: true,
     });
 
-    // Check if invalid and focus first
+    // If errors exist, focus the first invalid field
     if (Object.keys(newErrors).length > 0) {
       if (newErrors.name) nameInputRef.current?.focus();
-      else if (newErrors.email) emailInputRef.current?.focus();
       else if (newErrors.phone) phoneInputRef.current?.focus();
+      else if (newErrors.email) emailInputRef.current?.focus();
       else if (newErrors.service) serviceInputRef.current?.focus();
       else if (newErrors.message) messageInputRef.current?.focus();
       return;
@@ -167,8 +173,8 @@ export function ContactSection({ preselectedServiceId }) {
         {/* Section Heading */}
         <div className="mb-12 sm:mb-16">
           <SectionHeading
-            eyebrow="Contact us"
-            title="Contact our expert electricians"
+            eyebrow={siteContent.contactSection.eyebrow}
+            title={siteContent.contactSection.heading}
             align="center"
             maxWidth="max-w-[720px]"
           />
@@ -178,9 +184,29 @@ export function ContactSection({ preselectedServiceId }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column: Form Card */}
           <div className="lg:col-span-7 bg-white rounded-[8px] p-6 sm:p-8 md:p-10 border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.06)]">
-            <h3 className="font-display text-[#14295C] text-[24px] sm:text-[28px] uppercase tracking-wide mb-6">
-              Get in touch with us
+            <h3 className="font-display text-[#14295C] text-[24px] sm:text-[28px] uppercase tracking-wide mb-2">
+              {siteContent.contactSection.formHeading}
             </h3>
+
+            <p className="text-[14px] text-[#5B6475] leading-relaxed mb-6">
+              {siteContent.contactSection.formHelper}
+            </p>
+
+            {/* Pre-form Demo Notice when deliveryMode is demo */}
+            {isDemo && !submissionResult && (
+              <div
+                role="note"
+                className="p-3.5 mb-6 bg-[#FFD92F]/20 border border-[#FFD92F]/60 text-[#14295C] text-[13px] rounded-[4px] flex items-center justify-between flex-wrap gap-2"
+              >
+                <span>{siteContent.forms.messages.demoNotice}</span>
+                <a
+                  href={phoneHref}
+                  className="font-bold underline text-[#14295C] hover:text-[#1858DE] whitespace-nowrap min-h-[44px] inline-flex items-center"
+                >
+                  Call {siteContent.contact.phoneDisplay}
+                </a>
+              </div>
+            )}
 
             {submissionResult ? (
               /* Success State */
@@ -197,20 +223,54 @@ export function ContactSection({ preselectedServiceId }) {
                 <h4 className="font-display text-[22px] text-[#14295C] uppercase">
                   Enquiry Received
                 </h4>
-                <p className="text-[14px] text-[#5B6475] max-w-md leading-relaxed">
-                  Thanks, your enquiry was captured in this demo. No message was sent to any business email or server.
+                <p className="text-[14px] text-[#303746] max-w-md leading-relaxed">
+                  {isDemo
+                    ? siteContent.forms.messages.demoSuccess
+                    : siteContent.forms.messages.liveSuccess}
                 </p>
-                <div className="bg-white px-4 py-2 rounded-[4px] border border-[#E1E5EB] text-[13px] font-mono text-[#14295C]">
-                  Reference ID: <span className="font-bold">{submissionResult.referenceId}</span>
+
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                  <a
+                    href={phoneHref}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 min-h-[44px] rounded-[4px] bg-[#1858DE] hover:bg-[#1348B8] text-white font-semibold text-[14px] shadow-sm transition-colors focus-visible:outline-3 focus-visible:outline-[#FFD92F]"
+                  >
+                    <Phone className="w-4 h-4 fill-current" aria-hidden="true" />
+                    <span>Call {siteContent.contact.phoneDisplay}</span>
+                  </a>
+
+                  {siteContent.socialLinks.instagram?.url && (
+                    <a
+                      href={siteContent.socialLinks.instagram.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-[4px] bg-white border border-[#E1E5EB] text-[#14295C] hover:text-[#1858DE] font-semibold text-[13px] shadow-sm transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                    >
+                      <span>Instagram</span>
+                      <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  )}
+
+                  {siteContent.socialLinks.facebook?.url && (
+                    <a
+                      href={siteContent.socialLinks.facebook.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-[4px] bg-white border border-[#E1E5EB] text-[#14295C] hover:text-[#1858DE] font-semibold text-[13px] shadow-sm transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                    >
+                      <span>Facebook</span>
+                      <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
-                <div className="pt-2">
-                  <Button variant="primary" size="md" onClick={handleReset}>
+
+                <div className="pt-4 border-t border-[#E1E5EB] w-full mt-2">
+                  <Button variant="outline" size="sm" onClick={handleReset}>
                     Send Another Enquiry
                   </Button>
                 </div>
               </div>
             ) : (
-              /* Form */
+              /* Contact Form */
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 <div className="text-[12px] text-[#5B6475] italic -mt-2 mb-2">
                   * Required fields
@@ -248,7 +308,7 @@ export function ContactSection({ preselectedServiceId }) {
                       onBlur={handleBlur}
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? "error-name" : undefined}
-                      placeholder="e.g. John Smith"
+                      placeholder="e.g. Abdullah"
                       className={`h-[48px] px-3.5 rounded-[4px] border bg-white text-[14px] text-[#303746] transition-colors focus:bg-white ${
                         errors.name
                           ? "border-red-500 focus-visible:outline-red-500"
@@ -262,44 +322,6 @@ export function ContactSection({ preselectedServiceId }) {
                       >
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                         {errors.name}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex flex-col gap-1.5">
-                    <label
-                      htmlFor="field-email"
-                      className="text-[13px] font-semibold text-[#14295C] uppercase tracking-wider"
-                    >
-                      Email address *
-                    </label>
-                    <input
-                      ref={emailInputRef}
-                      id="field-email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      aria-invalid={Boolean(errors.email)}
-                      aria-describedby={errors.email ? "error-email" : undefined}
-                      placeholder="e.g. name@example.com"
-                      className={`h-[48px] px-3.5 rounded-[4px] border bg-white text-[14px] text-[#303746] transition-colors ${
-                        errors.email
-                          ? "border-red-500 focus-visible:outline-red-500"
-                          : "border-[#E1E5EB] focus-visible:outline-[#1858DE]"
-                      }`}
-                    />
-                    {errors.email && (
-                      <span
-                        id="error-email"
-                        className="text-[12px] text-red-600 flex items-center gap-1 mt-0.5"
-                      >
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                        {errors.email}
                       </span>
                     )}
                   </div>
@@ -325,7 +347,7 @@ export function ContactSection({ preselectedServiceId }) {
                       onBlur={handleBlur}
                       aria-invalid={Boolean(errors.phone)}
                       aria-describedby={errors.phone ? "error-phone" : undefined}
-                      placeholder="e.g. (555) 010-0199"
+                      placeholder="05XXXXXXXX"
                       className={`h-[48px] px-3.5 rounded-[4px] border bg-white text-[14px] text-[#303746] transition-colors ${
                         errors.phone
                           ? "border-red-500 focus-visible:outline-red-500"
@@ -343,13 +365,50 @@ export function ContactSection({ preselectedServiceId }) {
                     )}
                   </div>
 
-                  {/* Service Selection */}
+                  {/* Email (Optional) */}
+                  <div className="flex flex-col gap-1.5">
+                    <label
+                      htmlFor="field-email"
+                      className="text-[13px] font-semibold text-[#14295C] uppercase tracking-wider"
+                    >
+                      Email (optional)
+                    </label>
+                    <input
+                      ref={emailInputRef}
+                      id="field-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "error-email" : undefined}
+                      placeholder="name@domain.com"
+                      className={`h-[48px] px-3.5 rounded-[4px] border bg-white text-[14px] text-[#303746] transition-colors ${
+                        errors.email
+                          ? "border-red-500 focus-visible:outline-red-500"
+                          : "border-[#E1E5EB] focus-visible:outline-[#1858DE]"
+                      }`}
+                    />
+                    {errors.email && (
+                      <span
+                        id="error-email"
+                        className="text-[12px] text-red-600 flex items-center gap-1 mt-0.5"
+                      >
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                        {errors.email}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Service Needed */}
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="field-service"
                       className="text-[13px] font-semibold text-[#14295C] uppercase tracking-wider"
                     >
-                      Select a service *
+                      Service needed *
                     </label>
                     <select
                       ref={serviceInputRef}
@@ -367,13 +426,13 @@ export function ContactSection({ preselectedServiceId }) {
                           : "border-[#E1E5EB] focus-visible:outline-[#1858DE]"
                       }`}
                     >
-                      <option value="">Select a service</option>
+                      <option value="">Choose the service you need</option>
                       {services.map((svc) => (
                         <option key={svc.id} value={svc.id}>
                           {svc.title}
                         </option>
                       ))}
-                      <option value="other">Not sure / Other Electrical Need</option>
+                      <option value="other">Not sure / other</option>
                     </select>
                     {errors.service && (
                       <span
@@ -387,13 +446,13 @@ export function ContactSection({ preselectedServiceId }) {
                   </div>
                 </div>
 
-                {/* Message Field */}
+                {/* Tell us about the work (Message) */}
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="field-message"
                     className="text-[13px] font-semibold text-[#14295C] uppercase tracking-wider"
                   >
-                    Message *
+                    Tell us about the work *
                   </label>
                   <textarea
                     ref={messageInputRef}
@@ -406,7 +465,7 @@ export function ContactSection({ preselectedServiceId }) {
                     onBlur={handleBlur}
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? "error-message" : undefined}
-                    placeholder="Describe your project, timeline, and location..."
+                    placeholder="Home or business, district, what's happening or what you'd like done, and when."
                     className={`p-3.5 rounded-[4px] border bg-white text-[14px] text-[#303746] transition-colors resize-y ${
                       errors.message
                         ? "border-red-500 focus-visible:outline-red-500"
@@ -440,7 +499,7 @@ export function ContactSection({ preselectedServiceId }) {
                         <span>Sending…</span>
                       </span>
                     ) : (
-                      "Send Message"
+                      "Send Enquiry"
                     )}
                   </Button>
                 </div>
@@ -448,49 +507,86 @@ export function ContactSection({ preselectedServiceId }) {
             )}
           </div>
 
-          {/* Right Column: Contact Information Cards & Social */}
+          {/* Right Column: Contact Information Cards */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <div>
               <h3 className="font-display text-[#14295C] text-[24px] sm:text-[28px] uppercase tracking-wide mb-3">
-                Contact us
+                {siteContent.contactSection.directHeading}
               </h3>
               <p className="text-[14px] sm:text-[15px] text-[#5B6475] leading-relaxed">
-                Have questions or need a service estimate? Our team is here to assist. Submit your enquiry or reach out directly by phone or email.
+                {siteContent.contactSection.directParagraph}
               </p>
             </div>
 
-            {/* 2x2 Grid of Info Tiles */}
+            {/* 4 Consistent ContactInfoCards (no separate duplicate social row) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <ContactInfoCard
-                icon={MapPin}
-                label="Address"
-                value={siteContent.contact.address}
-              />
+              {/* 1. Phone Card */}
               <ContactInfoCard
                 icon={Phone}
-                label="Mobile"
+                label="Phone"
                 value={siteContent.contact.phoneDisplay}
-                href={siteContent.contact.phoneTel}
+                href={phoneHref}
+                ariaLabel={`Call ${siteContent.contact.phoneDisplay}`}
               />
-              <ContactInfoCard
-                icon={Clock}
-                label="Availability"
-                value={siteContent.contact.availability}
-              />
-              <ContactInfoCard
-                icon={Mail}
-                label="Email"
-                value={siteContent.contact.email}
-                href={`mailto:${siteContent.contact.email}`}
-              />
-            </div>
 
-            {/* Social Media Row with 4 yellow circle icons */}
-            <div className="pt-2 flex flex-col gap-2">
-              <span className="text-[12px] font-bold tracking-wider uppercase text-[#5B6475]">
-                Social Media
-              </span>
-              <SocialLinks variant="yellow-circle" />
+              {/* 2. Location Card with Google Maps link */}
+              <ContactInfoCard
+                icon={MapPin}
+                label="Location"
+                value={siteContent.contact.address.full}
+                flagEmoji={true}
+                secondaryLink={{
+                  text: "Open in Google Maps",
+                  href: mapsUrl,
+                }}
+              />
+
+              {/* 3. Instagram Card */}
+              {siteContent.socialLinks.instagram?.url && (
+                <ContactInfoCard
+                  icon={() => (
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  )}
+                  label="Instagram"
+                  value={siteContent.socialLinks.instagram.handle}
+                  href={siteContent.socialLinks.instagram.url}
+                  ariaLabel="Instagram: @cablejointsa (opens in a new tab)"
+                />
+              )}
+
+              {/* 4. Facebook Card */}
+              {siteContent.socialLinks.facebook?.url && (
+                <ContactInfoCard
+                  icon={() => (
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  )}
+                  label="Facebook"
+                  value={siteContent.socialLinks.facebook.handle}
+                  href={siteContent.socialLinks.facebook.url}
+                  ariaLabel="Facebook profile (opens in a new tab)"
+                />
+              )}
+
+              {/* Extra cards only render if email or hours are configured (currently null) */}
+              {siteContent.contact.email && (
+                <ContactInfoCard
+                  icon={Mail}
+                  label="Email"
+                  value={siteContent.contact.email}
+                  href={`mailto:${siteContent.contact.email}`}
+                />
+              )}
+              {siteContent.contact.hours && (
+                <ContactInfoCard
+                  icon={Clock}
+                  label="Working Hours"
+                  value={siteContent.contact.hours}
+                />
+              )}
             </div>
           </div>
         </div>

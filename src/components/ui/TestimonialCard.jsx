@@ -1,10 +1,10 @@
 import React from "react";
 import { StarRating } from "./StarRating";
 import { Avatar } from "./Avatar";
-import { ShieldCheck } from "lucide-react";
 
 /**
  * Clean Testimonial Card component adhering to zero-pill and industrial aesthetic guidelines.
+ * Features an explicit "Sample review" indicator to prevent misrepresenting reviews as verified fact.
  */
 export function TestimonialCard({ item, index, total }) {
   return (
@@ -15,11 +15,12 @@ export function TestimonialCard({ item, index, total }) {
       className="w-[320px] sm:w-[360px] shrink-0 bg-[#F4F5F7] border border-[#E1E5EB] rounded-[8px] p-6 flex flex-col justify-between snap-start transition-shadow hover:shadow-[0_8px_24px_rgba(20,41,92,0.08)]"
     >
       <div>
-        {/* Role header with verified electrical service category */}
+        {/* Role header with Sample Review label */}
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E1E5EB]">
-          <div className="flex items-center gap-1.5 text-[12px] font-semibold tracking-wider uppercase text-[#14295C]">
-            <ShieldCheck className="w-4 h-4 text-[#FFD92F] fill-[#FFD92F]" />
-            <span>{item.roleLabel}</span>
+          <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider uppercase text-[#14295C]">
+            <span className="px-2 py-0.5 rounded-[3px] bg-[#E1E5EB] text-[#14295C] text-[10px] font-mono">
+              Sample review
+            </span>
           </div>
           <span className="text-[11px] text-[#5B6475]">{item.roleCategory}</span>
         </div>

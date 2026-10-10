@@ -7,50 +7,59 @@ import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
 import { siteContent } from "../../data/siteContent";
 import { images } from "../../data/images";
+import { buildTelHref } from "../../utils/contact";
 
 export function HeroSection() {
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
+
   return (
     <section id="home" className="relative pt-6 pb-16 sm:pb-20 lg:pb-24 overflow-hidden">
       <PageContainer>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column (Content, ~55%) */}
           <div className="lg:col-span-7 flex flex-col items-start gap-6 z-10">
-            <Eyebrow>{siteContent.heroEyebrow}</Eyebrow>
+            <Eyebrow>
+              <span>{siteContent.hero.eyebrow}</span>
+              <span aria-hidden="true" className="ml-1.5 select-none">
+                🇸🇦
+              </span>
+            </Eyebrow>
 
             <h1 className="font-display text-[#14295C] text-[clamp(2.5rem,1.8rem+2.8vw,4.5rem)] leading-[1.0] tracking-[0.02em] uppercase">
-              <span className="block">The smarter way</span>
-              <span className="block">to handle your</span>
-              <span className="block text-[#1858DE]">electrical needs</span>
+              <span className="block">{siteContent.hero.headingLine1}</span>
+              <span className="block">{siteContent.hero.headingLine2}</span>
+              <span className="block text-[#1858DE]">{siteContent.hero.headingLine3}</span>
             </h1>
 
             <p className="text-[#303746] text-[15px] sm:text-[16px] leading-relaxed max-w-[52ch]">
-              {siteContent.heroDescription}
+              {siteContent.hero.description}
             </p>
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
               <Button href="#contact" variant="primary" size="lg" className="w-full sm:w-auto">
-                Schedule Your Service
+                {siteContent.hero.primaryCta}
               </Button>
-              <Button href="#services" variant="secondary" size="lg" className="w-full sm:w-auto">
-                Get Started
+              <Button href={phoneHref} variant="secondary" size="lg" className="w-full sm:w-auto">
+                {siteContent.hero.secondaryCta}
               </Button>
             </div>
 
             {/* Direct Phone & Social Links Row */}
             <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-[#E1E5EB] w-full mt-2">
               <a
-                href={siteContent.contact.phoneTel}
-                className="inline-flex items-center gap-2 text-[#14295C] font-semibold text-[14px] hover:text-[#1858DE] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+                href={phoneHref}
+                className="inline-flex items-center gap-2 text-[#14295C] font-semibold text-[14px] hover:text-[#1858DE] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE] min-h-[44px]"
               >
-                <div className="w-8 h-8 rounded-full bg-[#FFD92F] flex items-center justify-center text-[#14295C]">
-                  <Phone className="w-3.5 h-3.5 fill-current" />
+                <div className="w-8 h-8 rounded-full bg-[#FFD92F] flex items-center justify-center text-[#14295C] shrink-0">
+                  <Phone className="w-3.5 h-3.5 fill-current" aria-hidden="true" />
                 </div>
-                <span>{siteContent.contact.phoneDisplay}</span>
+                <span className="tabular-nums whitespace-nowrap">{siteContent.contact.phoneDisplay}</span>
               </a>
 
               <div className="h-4 w-[1px] bg-[#E1E5EB] hidden sm:block" />
 
+              {/* Instagram & Facebook verified links */}
               <SocialLinks variant="hero" />
             </div>
           </div>
@@ -102,7 +111,6 @@ export function HeroSection() {
               </div>
 
               {/* (4) Floating Label Chips */}
-              {/* Chip 1: Top-left of portrait */}
               <div className="absolute top-8 left-0 sm:left-2 bg-white/95 backdrop-blur-xs border border-[#E1E5EB] rounded-[4px] px-3 py-1.5 shadow-[0_2px_8px_rgba(20,41,92,0.12)] flex items-center gap-2 select-none z-20">
                 <div className="w-5 h-5 rounded-[4px] bg-[#14295C] text-[#FFD92F] flex items-center justify-center">
                   <Shield className="w-3 h-3 fill-current" />
@@ -112,7 +120,6 @@ export function HeroSection() {
                 </span>
               </div>
 
-              {/* Chip 2: Right side over panel */}
               <div className="absolute top-1/3 -right-2 sm:right-2 bg-white/95 backdrop-blur-xs border border-[#E1E5EB] rounded-[4px] px-3 py-1.5 shadow-[0_2px_8px_rgba(20,41,92,0.12)] flex items-center gap-2 select-none z-20">
                 <div className="w-5 h-5 rounded-[4px] bg-[#14295C] text-[#FFD92F] flex items-center justify-center">
                   <Zap className="w-3 h-3 fill-current" />
@@ -122,7 +129,6 @@ export function HeroSection() {
                 </span>
               </div>
 
-              {/* Chip 3: Bottom-left */}
               <div className="absolute bottom-1 left-2 sm:bottom-2 sm:left-2 bg-white/95 backdrop-blur-xs border border-[#E1E5EB] rounded-[4px] px-3 py-1.5 shadow-[0_2px_8px_rgba(20,41,92,0.12)] flex items-center gap-2 select-none z-20">
                 <div className="w-5 h-5 rounded-[4px] bg-[#14295C] text-[#FFD92F] flex items-center justify-center">
                   <Wrench className="w-3 h-3" />

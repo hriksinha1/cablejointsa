@@ -1,6 +1,6 @@
 /**
- * Testimonials data for Cablejointsa.
- * All testimonials are sample mock data with initials avatars and role labels.
+ * Sample testimonials data for Cablejointsa.
+ * Clearly marked as demonstration review data for layout visualization.
  */
 
 export const testimonials = [
@@ -10,58 +10,63 @@ export const testimonials = [
     roleCategory: "Residential Client",
     stars: 5,
     quote:
-      "Quick, professional, and courteous. I had several circuits acting up at home, and the electrician arrived promptly, explained the problem clearly, and completed the replacement without a mess.",
-    authorName: "Alex F.",
+      "Clear communication from the start. We needed lighting and extra sockets installed in our living area, and the technician completed the work tidily and explained what was done.",
+    authorName: "A. Al-Otaibi",
     authorRole: "Homeowner",
-    initials: "AF",
+    initials: "AO",
     avatarBg: "bg-[#14295C]",
+    isSample: true,
   },
   {
     id: "test-2",
-    roleLabel: "Property Manager",
-    roleCategory: "Multi-Unit Building",
+    roleLabel: "Commercial Client",
+    roleCategory: "Retail Space",
     stars: 5,
     quote:
-      "Managing multiple residential units requires contractors who communicate upfront and deliver tidy work. Cablejointsa consistently gives realistic timelines and detailed work summaries.",
-    authorName: "Marcus P.",
-    authorRole: "Property Manager",
-    initials: "MP",
+      "Prompt response when our store experienced recurring breaker trips during peak hours. Systematic troubleshooting found the loose connection quickly without disrupting customers.",
+    authorName: "M. Al-Ghamdi",
+    authorRole: "Retail Store Manager",
+    initials: "MG",
     avatarBg: "bg-[#1858DE]",
+    isSample: true,
   },
   {
     id: "test-3",
-    roleLabel: "Facility Manager",
-    roleCategory: "Commercial Client",
+    roleLabel: "Property Owner",
+    roleCategory: "Residential Building",
     stars: 5,
     quote:
-      "They assisted us with our warehouse lighting retrofit and panel inspection. Clear pricing with zero surprises on the final invoice. We will definitely call them again for future work.",
-    authorName: "Sarah R.",
-    authorRole: "Facility Operations",
-    initials: "SR",
+      "Arranged a safety check on an older distribution board. They walked through the breaker layout, highlighted worn switches, and provided straightforward recommendations.",
+    authorName: "S. Al-Harbi",
+    authorRole: "Property Owner",
+    initials: "SH",
     avatarBg: "bg-[#1B357A]",
+    isSample: true,
   },
   {
     id: "test-4",
-    roleLabel: "General Contractor",
-    roleCategory: "Renovation Partner",
+    roleLabel: "Office Manager",
+    roleCategory: "Commercial Office",
     stars: 5,
     quote:
-      "On renovation builds, schedules are tight. Their team ran the rough-in wiring and final connections cleanly, coordinating well with our carpenters and drywall crews.",
-    authorName: "Elena D.",
-    authorRole: "General Contractor",
-    initials: "ED",
+      "Reliable service for our office wiring and sub-panel additions in Malaz. The team was punctual, respectful of our work hours, and left everything organized.",
+    authorName: "F. Al-Dosari",
+    authorRole: "Office Operations",
+    initials: "FD",
     avatarBg: "bg-[#14295C]",
+    isSample: true,
   },
   {
     id: "test-5",
-    roleLabel: "Small Business Owner",
-    roleCategory: "Retail Client",
+    roleLabel: "Homeowner",
+    roleCategory: "Residential Client",
     stars: 5,
     quote:
-      "Had a sudden breaker trip problem affecting our storefront display lighting. The diagnostic was methodical and fixed the issue permanently. Very pleased with the honest approach.",
-    authorName: "Thomas C.",
-    authorRole: "Retail Store Owner",
-    initials: "TC",
+      "Appreciated the straightforward discussion when booking. No pressure, polite handling, and our faulty water heater circuit was repaired safely.",
+    authorName: "T. Al-Qahtani",
+    authorRole: "Homeowner",
+    initials: "TQ",
     avatarBg: "bg-[#1858DE]",
+    isSample: true,
   },
 ];

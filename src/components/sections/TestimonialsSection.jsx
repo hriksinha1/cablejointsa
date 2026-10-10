@@ -5,12 +5,17 @@ import { Eyebrow } from "../ui/Eyebrow";
 import { TestimonialCard } from "../ui/TestimonialCard";
 import { PageContainer } from "../layout/PageContainer";
 import { testimonials } from "../../data/testimonials";
-import { siteContent, SHOW_DEMO_NOTES } from "../../data/siteContent";
+import { siteContent } from "../../data/siteContent";
 
 export function TestimonialsSection() {
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // If testimonials feature flag is disabled, hide section completely
+  if (siteContent.features?.testimonials === false) {
+    return null;
+  }
 
   const checkScrollState = () => {
     const el = scrollContainerRef.current;
@@ -59,18 +64,18 @@ export function TestimonialsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column (~30%) */}
           <div className="lg:col-span-4 flex flex-col items-start gap-4">
-            <Eyebrow>Testimonials</Eyebrow>
+            <Eyebrow>{siteContent.testimonialsSection.eyebrow}</Eyebrow>
             <h2
               id="testimonials-heading"
               className="font-display text-[#14295C] text-[clamp(1.875rem,1.4rem+1.4vw,2.75rem)] leading-[1.05] uppercase"
             >
-              See why our clients love our work
+              {siteContent.testimonialsSection.heading}
             </h2>
             <p className="text-[#5B6475] text-[15px] leading-relaxed mb-2">
-              From residential service calls to extensive commercial upgrades, we are proud to deliver thorough, safe, and dependable results.
+              {siteContent.testimonialsSection.description}
             </p>
             <Button href="#contact" variant="primary" size="md">
-              Read More Reviews
+              {siteContent.testimonialsSection.ctaLabel}
             </Button>
           </div>
 
@@ -95,22 +100,20 @@ export function TestimonialsSection() {
               ))}
             </div>
 
-            {/* Carousel Navigation Buttons */}
-            <div className="flex items-center justify-between pt-2">
-              <div className="text-[12px] text-[#5B6475]">
-                {SHOW_DEMO_NOTES && (
-                  <span className="italic">{siteContent.demoNote}</span>
-                )}
+            {/* Carousel Navigation Buttons & Sample reviews layout notice */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+              <div className="text-[12px] text-[#5B6475] max-w-md">
+                <span className="italic">{siteContent.testimonialsSection.sampleNotice}</span>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 self-end sm:self-auto">
                 <button
                   type="button"
                   onClick={() => handleScroll("left")}
                   disabled={!canScrollLeft}
                   aria-label="Previous testimonial"
                   aria-disabled={!canScrollLeft}
-                  className={`w-11 h-11 rounded-full border border-[#E1E5EB] flex items-center justify-center transition-colors cursor-pointer select-none focus-visible:outline-3 focus-visible:outline-[#1858DE] ${
+                  className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[#E1E5EB] flex items-center justify-center transition-colors cursor-pointer select-none focus-visible:outline-3 focus-visible:outline-[#1858DE] ${
                     canScrollLeft
                       ? "bg-white text-[#14295C] hover:bg-[#F4F5F7]"
                       : "opacity-40 cursor-not-allowed bg-[#F4F5F7] text-[#5B6475]"
@@ -125,7 +128,7 @@ export function TestimonialsSection() {
                   disabled={!canScrollRight}
                   aria-label="Next testimonial"
                   aria-disabled={!canScrollRight}
-                  className={`w-11 h-11 rounded-full bg-[#FFD92F] text-[#14295C] flex items-center justify-center transition-colors cursor-pointer select-none shadow-sm focus-visible:outline-3 focus-visible:outline-[#1858DE] ${
+                  className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#FFD92F] text-[#14295C] flex items-center justify-center transition-colors cursor-pointer select-none shadow-sm focus-visible:outline-3 focus-visible:outline-[#1858DE] ${
                     canScrollRight
                       ? "hover:bg-[#F2C814]"
                       : "opacity-40 cursor-not-allowed"

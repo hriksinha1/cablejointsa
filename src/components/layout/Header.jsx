@@ -4,15 +4,17 @@ import { Logo } from "../ui/Logo";
 import { siteContent } from "../../data/siteContent";
 import { services } from "../../data/services";
 import { articles } from "../../data/articles";
+import { buildTelHref } from "../../utils/contact";
 import { useEscapeKey } from "../../hooks/useEscapeKey";
 
 export function Header({ onSelectService, onOpenArticle }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null); // 'services' | 'blog' | null
+  const [activeDropdown, setActiveDropdown] = useState(null); // 'services' | 'insights' | null
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
+  const [mobileInsightsOpen, setMobileInsightsOpen] = useState(false);
 
   const headerRef = useRef(null);
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -109,7 +111,7 @@ export function Header({ onSelectService, onOpenArticle }) {
                     key={svc.id}
                     type="button"
                     onClick={() => handleServiceClick(svc.id)}
-                    className="w-full text-left px-4 py-2 text-[13px] text-[#14295C] hover:bg-[#F4F5F7] hover:text-[#1858DE] transition-colors font-medium flex items-center justify-between"
+                    className="w-full text-left px-4 py-2 text-[13px] text-[#14295C] hover:bg-[#F4F5F7] hover:text-[#1858DE] transition-colors font-medium flex items-center justify-between cursor-pointer"
                   >
                     <span>{svc.title}</span>
                     <span className="text-[11px] font-mono text-[#5B6475]">{svc.number}</span>
@@ -119,28 +121,28 @@ export function Header({ onSelectService, onOpenArticle }) {
             )}
           </div>
 
-          {/* Blog Dropdown */}
+          {/* Insights Dropdown */}
           <div
             className="relative"
-            onMouseEnter={() => setActiveDropdown("blog")}
+            onMouseEnter={() => setActiveDropdown("insights")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <button
               type="button"
-              aria-expanded={activeDropdown === "blog"}
-              aria-controls="blog-menu"
+              aria-expanded={activeDropdown === "insights"}
+              aria-controls="insights-menu"
               onClick={() =>
-                setActiveDropdown((prev) => (prev === "blog" ? null : "blog"))
+                setActiveDropdown((prev) => (prev === "insights" ? null : "insights"))
               }
               className="px-3 py-2 rounded-[4px] inline-flex items-center gap-1 hover:text-[#1858DE] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE] cursor-pointer"
             >
-              <span>Blog</span>
+              <span>Insights</span>
               <ChevronDown className="w-3.5 h-3.5" />
             </button>
 
-            {activeDropdown === "blog" && (
+            {activeDropdown === "insights" && (
               <div
-                id="blog-menu"
+                id="insights-menu"
                 className="absolute left-0 top-full mt-1 w-72 bg-white rounded-[8px] shadow-xl border border-[#E1E5EB] py-2 z-40 animate-in fade-in duration-150"
               >
                 {articles.map((article) => (
@@ -148,7 +150,7 @@ export function Header({ onSelectService, onOpenArticle }) {
                     key={article.id}
                     type="button"
                     onClick={() => handleArticleClick(article)}
-                    className="w-full text-left px-4 py-2.5 text-[13px] text-[#14295C] hover:bg-[#F4F5F7] hover:text-[#1858DE] transition-colors font-medium line-clamp-1"
+                    className="w-full text-left px-4 py-2.5 text-[13px] text-[#14295C] hover:bg-[#F4F5F7] hover:text-[#1858DE] transition-colors font-medium line-clamp-1 cursor-pointer"
                   >
                     {article.title}
                   </button>
@@ -161,7 +163,7 @@ export function Header({ onSelectService, onOpenArticle }) {
             href="#faq"
             className="px-3 py-2 rounded-[4px] hover:text-[#1858DE] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE]"
           >
-            FAQ
+            FAQs
           </a>
 
           <a
@@ -172,33 +174,43 @@ export function Header({ onSelectService, onOpenArticle }) {
           </a>
         </nav>
 
-        {/* Right Phone Call Area & Mobile Hamburger */}
+        {/* Right Phone Call Area & Mobile Menu */}
         <div className="flex items-center gap-3">
+          {/* Desktop Call Us Button */}
           <a
-            href={siteContent.contact.phoneTel}
-            className="flex items-center gap-2.5 px-2 py-1 rounded-[4px] text-right focus-visible:outline-3 focus-visible:outline-[#1858DE] group"
+            href={phoneHref}
+            className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-[4px] text-right focus-visible:outline-3 focus-visible:outline-[#1858DE] group hover:bg-[#F4F5F7] transition-colors"
           >
-            <div className="w-10 h-10 rounded-full bg-[#FFD92F] group-hover:bg-[#F2C814] flex items-center justify-center text-[#14295C] shadow-sm transition-colors">
-              <Phone className="w-4 h-4 fill-current" />
+            <div className="w-10 h-10 rounded-full bg-[#FFD92F] group-hover:bg-[#F2C814] flex items-center justify-center text-[#14295C] shadow-sm transition-colors shrink-0">
+              <Phone className="w-4 h-4 fill-current" aria-hidden="true" />
             </div>
-            <div className="hidden sm:flex flex-col text-left">
-              <span className="text-[11px] uppercase tracking-wider text-[#5B6475] leading-none">
-                Call or chat
+            <div className="flex flex-col text-left">
+              <span className="text-[11px] uppercase tracking-wider text-[#5B6475] leading-none font-medium">
+                Call us
               </span>
-              <span className="font-bold text-[14px] text-[#14295C] group-hover:text-[#1858DE] transition-colors leading-tight">
+              <span className="font-bold text-[14px] text-[#14295C] group-hover:text-[#1858DE] transition-colors leading-tight tabular-nums whitespace-nowrap">
                 {siteContent.contact.phoneDisplay}
               </span>
             </div>
           </a>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Direct 44px Icon Call Button */}
+          <a
+            href={phoneHref}
+            aria-label={`Call ${siteContent.contact.phoneDisplay}`}
+            className="sm:hidden w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#FFD92F] hover:bg-[#F2C814] text-[#14295C] flex items-center justify-center shadow-sm focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+          >
+            <Phone className="w-4 h-4 fill-current" aria-hidden="true" />
+          </a>
+
+          {/* Mobile Menu Button (44px min tap target) */}
           <button
             type="button"
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-nav-panel"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="lg:hidden w-11 h-11 rounded-[4px] flex items-center justify-center border border-[#E1E5EB] text-[#14295C] hover:bg-[#F4F5F7] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE]"
+            className="lg:hidden w-11 h-11 min-w-[44px] min-h-[44px] rounded-[4px] flex items-center justify-center border border-[#E1E5EB] text-[#14295C] hover:bg-[#F4F5F7] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE] cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -209,19 +221,19 @@ export function Header({ onSelectService, onOpenArticle }) {
       {mobileMenuOpen && (
         <div
           id="mobile-nav-panel"
-          className="lg:hidden max-w-[1240px] mx-auto mt-2 bg-white rounded-[8px] shadow-2xl border border-[#E1E5EB] p-4 flex flex-col gap-2 animate-in slide-in-from-top-2 duration-150"
+          className="lg:hidden max-w-[1240px] mx-auto mt-2 bg-white rounded-[8px] shadow-2xl border border-[#E1E5EB] p-4 flex flex-col gap-1.5 animate-in slide-in-from-top-2 duration-150"
         >
           <a
             href="#home"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+            className="px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] flex items-center"
           >
             Home
           </a>
           <a
             href="#about"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+            className="px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] flex items-center"
           >
             About
           </a>
@@ -231,7 +243,7 @@ export function Header({ onSelectService, onOpenArticle }) {
             <button
               type="button"
               onClick={() => setMobileServicesOpen((prev) => !prev)}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+              className="w-full flex items-center justify-between px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] cursor-pointer"
             >
               <span>Services</span>
               <ChevronDown
@@ -247,7 +259,7 @@ export function Header({ onSelectService, onOpenArticle }) {
                     key={svc.id}
                     type="button"
                     onClick={() => handleServiceClick(svc.id)}
-                    className="text-left py-2 text-[14px] text-[#5B6475] hover:text-[#1858DE]"
+                    className="text-left py-2 min-h-[44px] text-[14px] text-[#5B6475] hover:text-[#1858DE] flex items-center cursor-pointer"
                   >
                     {svc.title}
                   </button>
@@ -256,28 +268,28 @@ export function Header({ onSelectService, onOpenArticle }) {
             )}
           </div>
 
-          {/* Mobile Blog Accordion */}
+          {/* Mobile Insights Accordion */}
           <div className="flex flex-col">
             <button
               type="button"
-              onClick={() => setMobileBlogOpen((prev) => !prev)}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+              onClick={() => setMobileInsightsOpen((prev) => !prev)}
+              className="w-full flex items-center justify-between px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] cursor-pointer"
             >
-              <span>Blog</span>
+              <span>Insights</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform ${
-                  mobileBlogOpen ? "rotate-180" : ""
+                  mobileInsightsOpen ? "rotate-180" : ""
                 }`}
               />
             </button>
-            {mobileBlogOpen && (
+            {mobileInsightsOpen && (
               <div className="pl-6 pr-2 py-1 flex flex-col gap-1 border-l-2 border-[#1858DE] ml-4 my-1">
                 {articles.map((article) => (
                   <button
                     key={article.id}
                     type="button"
                     onClick={() => handleArticleClick(article)}
-                    className="text-left py-2 text-[14px] text-[#5B6475] hover:text-[#1858DE]"
+                    className="text-left py-2 min-h-[44px] text-[14px] text-[#5B6475] hover:text-[#1858DE] flex items-center cursor-pointer"
                   >
                     {article.title}
                   </button>
@@ -289,24 +301,25 @@ export function Header({ onSelectService, onOpenArticle }) {
           <a
             href="#faq"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+            className="px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] flex items-center"
           >
-            FAQ
+            FAQs
           </a>
           <a
             href="#contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="px-4 py-3 rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7]"
+            className="px-4 py-3 min-h-[44px] rounded-[4px] font-semibold text-[15px] text-[#14295C] hover:bg-[#F4F5F7] flex items-center"
           >
             Contact
           </a>
 
+          {/* Mobile Call 0570477234 Full-Width Button */}
           <div className="pt-3 border-t border-[#E1E5EB] mt-2">
             <a
-              href={siteContent.contact.phoneTel}
-              className="w-full py-3 px-4 bg-[#FFD92F] text-[#14295C] font-bold uppercase rounded-[4px] flex items-center justify-center gap-2"
+              href={phoneHref}
+              className="w-full py-3.5 px-4 min-h-[44px] bg-[#FFD92F] text-[#14295C] font-bold uppercase rounded-[4px] flex items-center justify-center gap-2 shadow-sm focus-visible:outline-3 focus-visible:outline-[#1858DE]"
             >
-              <Phone className="w-4 h-4 fill-current" />
+              <Phone className="w-4 h-4 fill-current" aria-hidden="true" />
               <span>Call {siteContent.contact.phoneDisplay}</span>
             </a>
           </div>

@@ -4,11 +4,20 @@ import { Eyebrow } from "../ui/Eyebrow";
 import { Dialog } from "../ui/Dialog";
 import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
-import { siteContent, SHOW_DEMO_NOTES } from "../../data/siteContent";
+import { siteContent } from "../../data/siteContent";
+import { services } from "../../data/services";
 import { images } from "../../data/images";
 
 export function IntroMetricsSection() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+
+  // Compute metrics with dynamically derived services count
+  const metricsData = [
+    { value: "Riyadh", label: "Based in Malaz" },
+    { value: String(services.length), label: "Electrical service types" },
+    { value: "2", label: "Property types: homes and businesses" },
+    { value: "Direct", label: "Call or send an enquiry online" },
+  ];
 
   return (
     <section
@@ -39,9 +48,9 @@ export function IntroMetricsSection() {
         {/* 1px divider rule */}
         <hr className="border-[#E1E5EB] mb-8" />
 
-        {/* Metrics Row: 4 metrics with vertical dividers */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-[#E1E5EB] text-center mb-4">
-          {siteContent.metrics.map((metric, idx) => (
+        {/* Metrics Row: 4 factual columns with vertical dividers */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-[#E1E5EB] text-center mb-12">
+          {metricsData.map((metric, idx) => (
             <div key={idx} className="p-4 sm:p-6 flex flex-col items-center justify-center">
               <span className="font-display text-[#14295C] text-[clamp(2.25rem,1.8rem+1.5vw,3rem)] leading-none mb-1">
                 {metric.value}
@@ -52,13 +61,6 @@ export function IntroMetricsSection() {
             </div>
           ))}
         </div>
-
-        {/* Demo Caption */}
-        {SHOW_DEMO_NOTES && (
-          <p className="text-center text-[12px] text-[#5B6475] mb-12">
-            {siteContent.demoNote}
-          </p>
-        )}
 
         {/* Video Thumbnail Preview */}
         <div className="relative w-full rounded-[8px] overflow-hidden aspect-[16/9] md:aspect-[5/2] border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.08)] group bg-[#14295C]">
@@ -110,11 +112,10 @@ export function IntroMetricsSection() {
               </div>
               <div>
                 <h4 className="font-display text-[20px] text-[#14295C] mb-2 uppercase">
-                  Demo Preview
+                  Project Video
                 </h4>
                 <p className="text-[14px] text-[#5B6475] max-w-md">
-                  No video has been connected yet. Add a video URL in{" "}
-                  <code className="text-[#14295C] font-mono font-semibold">siteContent.js</code> to link your actual corporate or project reel.
+                  To view ongoing work or discuss projects, contact our team in Malaz, Riyadh.
                 </p>
               </div>
             </div>

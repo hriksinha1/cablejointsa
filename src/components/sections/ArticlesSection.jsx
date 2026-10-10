@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, User } from "lucide-react";
+import { Clock, Tag } from "lucide-react";
 import { Button } from "../ui/Button";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Dialog } from "../ui/Dialog";
@@ -7,6 +7,15 @@ import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
 import { articles } from "../../data/articles";
 import { images } from "../../data/images";
+
+/**
+ * Calculates estimated read time based on an average reading speed of 200 words per minute.
+ */
+function getReadTime(bodyArray = []) {
+  const totalWords = bodyArray.join(" ").trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(totalWords / 200));
+  return `${minutes} min read`;
+}
 
 export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArticle }) {
   const [internalArticle, setInternalArticle] = useState(null);
@@ -39,8 +48,8 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
         {/* Section Heading */}
         <div className="mb-14 sm:mb-20">
           <SectionHeading
-            eyebrow="The electrician's blog"
-            title="Everything you need to know about electrical safety"
+            eyebrow="Insights"
+            title="Practical electrical safety and maintenance guidance"
             align="center"
             maxWidth="max-w-[760px]"
           />
@@ -51,6 +60,7 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
           {articles.map((article, idx) => {
             const isEven = idx % 2 === 1; // row 2: text-left / image-right on desktop
             const articleImage = images[article.imageSlot] || images.article1;
+            const readTime = getReadTime(article.body);
 
             return (
               <article
@@ -83,16 +93,16 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
                     isEven ? "lg:order-1" : "lg:order-2"
                   } flex flex-col items-start gap-4`}
                 >
-                  {/* Clean unboxed metadata with subtle icons */}
-                  <div className="flex items-center gap-4 text-[12px] sm:text-[13px] text-[#5B6475]">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#1858DE]" />
-                      <span>{article.date}</span>
+                  {/* Category chip and auto-computed read time */}
+                  <div className="flex items-center gap-3 text-[12px] sm:text-[13px] text-[#5B6475]">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[4px] bg-[#F4F5F7] border border-[#E1E5EB] text-[#14295C] font-semibold text-[11px] uppercase tracking-wider">
+                      <Tag className="w-3 h-3 text-[#1858DE]" />
+                      <span>{article.category}</span>
                     </span>
                     <span aria-hidden="true">·</span>
                     <span className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-[#1858DE]" />
-                      <span>{article.author}</span>
+                      <Clock className="w-3.5 h-3.5 text-[#1858DE]" />
+                      <span>{readTime}</span>
                     </span>
                   </div>
 
@@ -110,7 +120,7 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
                       size="md"
                       onClick={() => handleOpen(article)}
                     >
-                      Learn More
+                      {article.ctaLabel || "Read Guide"}
                     </Button>
                   </div>
                 </div>
@@ -128,16 +138,16 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
         >
           {activeArticle && (
             <div className="space-y-6">
-              {/* Meta info */}
-              <div className="flex items-center gap-4 text-[13px] text-[#5B6475] pb-4 border-b border-[#E1E5EB]">
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-[#1858DE]" />
-                  <span>{activeArticle.date}</span>
+              {/* Category & Read time metadata */}
+              <div className="flex items-center gap-3 text-[13px] text-[#5B6475] pb-4 border-b border-[#E1E5EB]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-[4px] bg-[#F4F5F7] text-[#14295C] font-semibold text-[11px] uppercase tracking-wider">
+                  <Tag className="w-3 h-3 text-[#1858DE]" />
+                  <span>{activeArticle.category}</span>
                 </span>
                 <span>·</span>
                 <span className="flex items-center gap-1.5">
-                  <User className="w-4 h-4 text-[#1858DE]" />
-                  <span>{activeArticle.author}</span>
+                  <Clock className="w-4 h-4 text-[#1858DE]" />
+                  <span>{getReadTime(activeArticle.body)}</span>
                 </span>
               </div>
 
@@ -150,7 +160,7 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
 
               <div className="pt-4 border-t border-[#E1E5EB] flex justify-end">
                 <Button variant="outline" size="sm" onClick={handleClose}>
-                  Close Article
+                  Close Guide
                 </Button>
               </div>
             </div>

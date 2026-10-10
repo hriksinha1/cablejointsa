@@ -24,9 +24,10 @@ export function ServiceStrip({
 }) {
   const [isPaused, setIsPaused] = useState(false);
   const prefersReducedMotion = useReducedMotion();
-  const items = siteContent.serviceStripItems;
 
   const isBlue = variant === "blue";
+  const items = isBlue ? siteContent.strips.blue : siteContent.strips.yellow;
+
   const bgClass = isBlue ? "bg-[#1858DE]" : "bg-[#FFD92F]";
   const textClass = isBlue ? "text-white" : "text-[#14295C]";
   const starClass = isBlue ? "text-[#FFD92F]" : "text-[#14295C]";
@@ -38,7 +39,7 @@ export function ServiceStrip({
     >
       {items.map((item, idx) => (
         <React.Fragment key={`${item}-${idx}`}>
-          <span className="font-display text-[18px] sm:text-[22px] tracking-[0.06em] uppercase whitespace-nowrap">
+          <span className="font-display text-[18px] sm:text-[22px] tracking-[0.06em] uppercase whitespace-nowrap select-none">
             {item}
           </span>
           <StarBurst className={starClass} />
@@ -49,7 +50,7 @@ export function ServiceStrip({
 
   return (
     <aside
-      aria-label="Key Service Highlights"
+      aria-label={isBlue ? "Local Presence Highlights" : "Key Service Highlights"}
       className={`relative w-full overflow-hidden h-[48px] sm:h-[60px] flex items-center select-none ${bgClass} ${textClass}`}
     >
       <div
@@ -65,27 +66,27 @@ export function ServiceStrip({
         >
           {renderGroup(false)}
           {!prefersReducedMotion && (
-            <div className="marquee-duplicate flex items-center">
+            <div className="marquee-duplicate flex items-center" aria-hidden="true">
               {renderGroup(true)}
             </div>
           )}
         </div>
       </div>
 
-      {/* Accessibility Pause / Play Toggle Button */}
+      {/* Accessibility Pause / Play Toggle Button (min 44px tap target) */}
       {!prefersReducedMotion && (
         <button
           type="button"
           onClick={() => setIsPaused((prev) => !prev)}
           aria-pressed={isPaused}
           aria-label={isPaused ? "Resume ticker animation" : "Pause ticker animation"}
-          className={`absolute right-2 sm:right-4 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-opacity hover:opacity-80 focus-visible:outline-3 ${
+          className={`absolute right-2 sm:right-4 z-20 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center transition-opacity hover:opacity-80 focus-visible:outline-3 cursor-pointer ${
             isBlue
-              ? "bg-white/10 text-white focus-visible:outline-[#FFD92F]"
-              : "bg-[#14295C]/10 text-[#14295C] focus-visible:outline-[#1858DE]"
+              ? "bg-white/15 text-white focus-visible:outline-[#FFD92F]"
+              : "bg-[#14295C]/15 text-[#14295C] focus-visible:outline-[#1858DE]"
           }`}
         >
-          {isPaused ? <Play className="w-3.5 h-3.5 fill-current" /> : <Pause className="w-3.5 h-3.5 fill-current" />}
+          {isPaused ? <Play className="w-4 h-4 fill-current" /> : <Pause className="w-4 h-4 fill-current" />}
         </button>
       )}
     </aside>

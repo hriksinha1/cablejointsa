@@ -4,6 +4,7 @@ import { Button } from "../ui/Button";
 import { Eyebrow } from "../ui/Eyebrow";
 import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
+import { siteContent } from "../../data/siteContent";
 import { services } from "../../data/services";
 import { images } from "../../data/images";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
@@ -52,7 +53,7 @@ export function ServicesSection({ selectedServiceId, onSelectService, onBookServ
     }
   };
 
-  const handleLearnMore = () => {
+  const handleServiceCta = () => {
     if (onBookService) {
       onBookService(activeService.id);
     }
@@ -72,14 +73,14 @@ export function ServicesSection({ selectedServiceId, onSelectService, onBookServ
         {/* Header Grid: 1/3 + 2/3 */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-12">
           <div className="lg:col-span-4">
-            <Eyebrow variant="on-navy">Our services</Eyebrow>
+            <Eyebrow variant="on-navy">{siteContent.servicesSection.eyebrow}</Eyebrow>
           </div>
           <div className="lg:col-span-8">
             <h2
               id="services-heading"
               className="font-display text-white text-[clamp(1.875rem,1.4rem+1.4vw,2.75rem)] leading-[1.05] uppercase"
             >
-              Professional electrical services for homes and businesses
+              {siteContent.servicesSection.heading}
             </h2>
           </div>
         </div>
@@ -160,15 +161,23 @@ export function ServicesSection({ selectedServiceId, onSelectService, onBookServ
                     {activeService.title}
                   </h3>
 
-                  <p className="text-white/85 text-[14px] sm:text-[15px] leading-relaxed">
+                  <p className="text-white/90 text-[14px] sm:text-[15px] leading-relaxed">
                     {activeService.longDescription}
                   </p>
+
+                  {/* Common Enquiries Line */}
+                  {activeService.commonEnquiries && (
+                    <p className="text-white/60 text-[12px] sm:text-[13px] leading-normal italic">
+                      <span className="font-semibold text-white/80 not-italic">Common enquiries: </span>
+                      {activeService.commonEnquiries}
+                    </p>
+                  )}
 
                   <div className="pt-2 w-full sm:w-auto">
                     <Button
                       variant="primary"
                       size="md"
-                      onClick={handleLearnMore}
+                      onClick={handleServiceCta}
                       className="w-full sm:w-auto"
                     >
                       {activeService.ctaLabel}

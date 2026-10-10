@@ -1,92 +1,177 @@
 /**
- * Central site configuration and editable sample content for Cablejointsa.
- * Keep verified facts in central data files; placeholder contact info is clearly marked.
+ * Central Content Architecture and Single Source of Truth for Cablejointsa.
+ * Pure ESM data module without JSX or browser-specific globals so vite.config.js and node scripts can import it.
  */
 
-export const SHOW_DEMO_NOTES = true;
-
 export const siteContent = {
+  brand: {
+    name: "Cablejointsa",
+    tagline: "Electrical Services for Homes and Businesses",
+    siteUrl: "https://cablejointsa.vercel.app/",
+  },
+
+  // Backwards compatibility property
   brandName: "Cablejointsa",
   tagline: "Electrical Services for Homes and Businesses",
-  heroEyebrow: "Electrical services you can rely on",
-  heroHeading: "The smarter way to handle your electrical needs",
-  heroDescription:
-    "Cablejointsa provides electrical services for homes and businesses, from quick repairs to full installations, with a focus on safety, efficiency and quality workmanship.",
-  
-  contact: {
-    phoneDisplay: "(555) 010-0199",
-    phoneTel: "tel:+15550100199",
-    email: "hello@example.com",
-    address: "Your business address – edit in siteContent.js",
-    availability: "Mon – Fri: 8:00 AM – 6:00 PM",
-  },
 
-  workingHours: [
-    { day: "Mon – Fri", hours: "8:00 AM – 6:00 PM" },
-    { day: "Sat", hours: "8:00 AM – 3:00 PM" },
-    { day: "Sun", hours: "Closed" },
-  ],
+  contact: {
+    phoneDisplay: "0570477234",
+    phoneTel: "+966570477234",
+    phoneTelHref: "tel:+966570477234",
+    address: {
+      district: "Malaz",
+      city: "Riyadh",
+      country: "Saudi Arabia",
+      postalCode: "12831",
+      full: "Malaz, Riyadh, Saudi Arabia 12831",
+    },
+    locationLabel: "Riyadh, Saudi Arabia",
+    email: null,
+    hours: null,
+  },
 
   socialLinks: {
-    facebook: "https://facebook.com",
-    linkedin: "https://linkedin.com",
-    youtube: "https://youtube.com",
-    twitter: "https://x.com",
+    instagram: {
+      url: "https://www.instagram.com/cablejointsa/",
+      label: "Instagram",
+      handle: "@cablejointsa",
+    },
+    facebook: {
+      url: "https://www.facebook.com/people/The-saif-ahmed/100065301078114/#",
+      label: "Facebook",
+      handle: "Cablejointsa on Facebook",
+    },
   },
 
-  navLinks: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services", hasDropdown: true },
-    { label: "Blog", href: "#blog", hasDropdown: true },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "#contact" },
+  safety: {
+    emergencyLabel: "Saudi Civil Defense",
+    emergencyNumber: "998",
+  },
+
+  forms: {
+    deliveryMode: "demo", // 'demo' | 'live'
+    messages: {
+      demoNotice: "Online enquiries are in demo mode. For a real response, please call 0570477234.",
+      demoSuccess:
+        "Enquiry captured in this demonstration. No message has been sent to Cablejointsa. To reach the team, call 0570477234.",
+      liveSuccess:
+        "Thank you! Your enquiry has been received. Our team will review your requirements and call you back shortly.",
+    },
+  },
+
+  features: {
+    testimonials: true, // Toggle flag to show/hide the testimonials section and its nav references
+  },
+
+  hero: {
+    eyebrow: "Electrical services in Riyadh",
+    headingLine1: "Electrical work for",
+    headingLine2: "homes and",
+    headingLine3: "businesses",
+    description:
+      "Talk to Cablejointsa about wiring, repairs, installations or maintenance for your home or business. Tell us what you need and we'll discuss the next step.",
+    primaryCta: "Request a Quote",
+    secondaryCta: "Call 0570477234",
+  },
+
+  // Backwards compatibility keys for hero
+  heroEyebrow: "Electrical services in Riyadh",
+  heroHeading: "Electrical work for homes and businesses",
+  heroDescription:
+    "Talk to Cablejointsa about wiring, repairs, installations or maintenance for your home or business. Tell us what you need and we'll discuss the next step.",
+
+  strips: {
+    yellow: [
+      "Residential & Commercial Electrical Work",
+      "Installation, Repair & Maintenance",
+      "Clear Communication",
+      "Enquire About Your Project",
+    ],
+    blue: [
+      "Based in Malaz, Riyadh",
+      "Call 0570477234",
+      "Request a Quote Online",
+      "Follow Us on Instagram",
+    ],
+  },
+
+  // Backwards compatibility
+  serviceStripItems: [
+    "Residential & Commercial Electrical Work",
+    "Installation, Repair & Maintenance",
+    "Clear Communication",
+    "Enquire About Your Project",
   ],
 
-  serviceStripItems: [
-    "Fast & Reliable Service",
-    "Transparent Pricing",
-    "Residential & Commercial Services",
-    "Friendly Customer Support",
-  ],
+  introText: {
+    eyebrow: "About Cablejointsa",
+    heading: "A clear, straightforward way to get electrical work done",
+    description:
+      "Whether it's a fault at home, work at a shop or office, or planned maintenance, start with a conversation. Call or send an enquiry describing your property and what you need, and we'll talk it through with you.",
+  },
 
   metrics: [
-    { value: "100%", label: "Satisfaction goal" },
-    { value: "10+", label: "Years of experience" },
-    { value: "500+", label: "Projects completed" },
-    { value: "24/7", label: "Support" },
+    { value: "Riyadh", label: "Based in Malaz" },
+    { value: "5", label: "Electrical service types" },
+    { value: "2", label: "Property types: homes and businesses" },
+    { value: "Direct", label: "Call or send an enquiry online" },
   ],
+  metricsVerified: false,
 
-  rating: {
-    score: "5.0",
-    label: "Satisfied clients (sample)",
-    stars: 5,
+  aboutText: {
+    eyebrow: "About us",
+    heading: "Electrical work with safety in mind",
+    p1: "Good electrical work protects people and property. We start by understanding your space, your requirements and any concerns, so you know what to expect before work begins.",
+    p2: "We work with residential and commercial customers in Riyadh. If you're not sure what to ask for, describe the problem and we'll help you work it out.",
+    locationPill: "Malaz, Riyadh",
+    ctaLabel: "View Electrical Services",
+  },
+
+  servicesSection: {
+    eyebrow: "Our services",
+    heading: "Professional electrical services for homes and businesses",
+  },
+
+  testimonialsSection: {
+    eyebrow: "Customer feedback",
+    heading: "What customers say",
+    description:
+      "Feedback from clients on residential and commercial electrical work across Riyadh.",
+    ctaLabel: "Discuss Your Project",
+    sampleNotice:
+      "Sample reviews shown for layout. Replace with real customer feedback before promoting this site.",
+  },
+
+  contactSection: {
+    eyebrow: "Contact us",
+    heading: "Get in touch about your electrical work",
+    formHeading: "Send an enquiry",
+    formHelper:
+      "Tell us about your property, the electrical work you need and your preferred timing. You can also call us directly.",
+    directHeading: "Call or message us",
+    directParagraph:
+      "Prefer to talk? Call 0570477234, or message us on Instagram or Facebook. We're based in Malaz, Riyadh.",
+  },
+
+  finalCta: {
+    heading: "Talk to Cablejointsa about your electrical work",
+    description:
+      "Call 0570477234 or send an enquiry with details of your property and the work you need.",
+    primaryBtn: "Send an Enquiry",
+    secondaryBtn: "Call 0570477234",
+  },
+
+  footer: {
+    description: "Electrical services for homes and businesses in Riyadh, Saudi Arabia.",
+    copyright: "Cablejointsa. All rights reserved.",
+  },
+
+  metadata: {
+    title: "Cablejointsa | Electrical Services in Riyadh",
+    description:
+      "Electrical services for homes and businesses in Riyadh. Ask Cablejointsa about wiring, repairs, installations and maintenance, or call 0570477234.",
   },
 
   // Video preview configuration (empty by default; prompts demo preview modal)
   videoUrl: "",
-
-  demoNote: "Sample content – replace with verified information",
-
-  aboutText: {
-    eyebrow: "About us",
-    heading: "Dedicated to safe, reliable and quality electrical work",
-    p1: "At Cablejointsa, we believe electrical work should be transparent, stress-free, and dependable. That is why we provide clear communication, skilled technicians, and attentive service on every project.",
-    p2: "Whether you need routine troubleshooting, planned maintenance, or system improvements, our team focuses on careful execution, tidy work areas, and strict adherence to industry standards.",
-  },
-
-  introText: {
-    eyebrow: "Why choose us",
-    heading: "Choosing the right electrician means choosing safety, quality and reliability.",
-    description:
-      "We believe electrical work should be stress-free, transparent, and dependable. That's why we focus on straightforward communication, skilled technicians, and exceptional service — ensuring your electrical systems run smoothly without hidden surprises.",
-  },
-
-  finalCta: {
-    heading: "Trust the pros for all your electrical needs",
-    description:
-      "We are committed to providing dependable services, fair pricing, and clear results. Reach out today to discuss your next residential or commercial electrical project.",
-    primaryBtn: "Request a Quote",
-    secondaryBtn: "Call (555) 010-0199",
-  },
 };

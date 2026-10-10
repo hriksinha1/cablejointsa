@@ -5,8 +5,11 @@ import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
 import { siteContent } from "../../data/siteContent";
 import { images } from "../../data/images";
+import { buildTelHref } from "../../utils/contact";
 
 export function FinalCTASection() {
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
+
   return (
     <section
       id="cta"
@@ -27,7 +30,7 @@ export function FinalCTASection() {
           decorative={true}
           className="w-full h-full object-cover"
         />
-        {/* Navy Overlay ensuring WCAG AAA 4.5:1+ contrast while keeping photo visible */}
+        {/* Navy Overlay ensuring high contrast while keeping subject visible */}
         <div
           className="absolute inset-0 bg-[#14295C]/75"
           aria-hidden="true"
@@ -43,7 +46,7 @@ export function FinalCTASection() {
             {siteContent.finalCta.heading}
           </h2>
 
-          <p className="text-white/85 text-[15px] sm:text-[17px] leading-relaxed max-w-2xl">
+          <p className="text-white/90 text-[15px] sm:text-[17px] leading-relaxed max-w-2xl">
             {siteContent.finalCta.description}
           </p>
 
@@ -58,12 +61,12 @@ export function FinalCTASection() {
             </Button>
 
             <Button
-              href={siteContent.contact.phoneTel}
+              href={phoneHref}
               variant="secondary"
               size="lg"
-              className="w-full sm:w-auto flex items-center gap-2"
+              className="w-full sm:w-auto flex items-center justify-center gap-2"
             >
-              <Phone className="w-4 h-4 fill-current" />
+              <Phone className="w-4 h-4 fill-current shrink-0" aria-hidden="true" />
               <span>{siteContent.finalCta.secondaryBtn}</span>
             </Button>
           </div>

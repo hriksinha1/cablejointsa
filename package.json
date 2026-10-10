@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "vite build",
+    "content:check": "node scripts/check-content.mjs",
     "images:fetch": "node scripts/fetch-images.mjs",
     "images:check": "node scripts/check-images.mjs"
   },

@@ -1,19 +1,15 @@
 import React from "react";
+import { MapPin, Phone } from "lucide-react";
 import { Button } from "../ui/Button";
 import { SectionHeading } from "../ui/SectionHeading";
-import { StarRating } from "../ui/StarRating";
-import { AvatarStack } from "../ui/Avatar";
 import { ImageWithFallback } from "../ui/ImageWithFallback";
 import { PageContainer } from "../layout/PageContainer";
-import { siteContent, SHOW_DEMO_NOTES } from "../../data/siteContent";
+import { siteContent } from "../../data/siteContent";
 import { images } from "../../data/images";
+import { buildTelHref } from "../../utils/contact";
 
 export function AboutSection() {
-  const sampleAvatars = [
-    { initials: "JD", name: "Client JD", bgClass: "bg-[#14295C]" },
-    { initials: "MK", name: "Client MK", bgClass: "bg-[#1858DE]" },
-    { initials: "AL", name: "Client AL", bgClass: "bg-[#1B357A]" },
-  ];
+  const phoneHref = buildTelHref(siteContent.contact.phoneTel);
 
   return (
     <section id="about" className="py-16 sm:py-20 lg:py-24 bg-white overflow-hidden">
@@ -46,7 +42,7 @@ export function AboutSection() {
             />
           </div>
 
-          {/* Right Column (Text, Rating Stack, Button) */}
+          {/* Right Column (Text, Location Pill, Phone Link, Button) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-8">
             <div className="space-y-4 text-[#303746] text-[15px] sm:text-[16px] leading-relaxed">
               <p>{siteContent.aboutText.p1}</p>
@@ -54,27 +50,24 @@ export function AboutSection() {
             </div>
 
             <div className="flex flex-col gap-6 pt-4 border-t border-[#E1E5EB]">
-              {/* Rating + Avatar Stack Block */}
+              {/* Location Pill & Direct Phone Row replacing sample rating/avatars block */}
               <div className="flex flex-wrap items-center gap-4">
-                <AvatarStack items={sampleAvatars} />
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-2">
-                    <span className="font-display text-[22px] text-[#14295C] leading-none">
-                      {siteContent.rating.score}
-                    </span>
-                    <StarRating rating={siteContent.rating.stars} />
-                  </div>
-                  <span className="text-[12px] text-[#5B6475]">
-                    {siteContent.rating.label}
-                  </span>
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#F4F5F7] border border-[#E1E5EB] text-[13px] font-semibold text-[#14295C] select-none">
+                  <MapPin className="w-4 h-4 text-[#1858DE]" aria-hidden="true" />
+                  <span>{siteContent.aboutText.locationPill}</span>
+                  <span aria-hidden="true">🇸🇦</span>
                 </div>
-              </div>
 
-              {SHOW_DEMO_NOTES && (
-                <span className="text-[11px] text-[#5B6475] italic -mt-3">
-                  {siteContent.demoNote}
-                </span>
-              )}
+                <a
+                  href={phoneHref}
+                  className="inline-flex items-center gap-2 text-[#14295C] hover:text-[#1858DE] font-semibold text-[14px] transition-colors focus-visible:outline-3 focus-visible:outline-[#1858DE] py-1"
+                >
+                  <div className="w-7 h-7 rounded-full bg-[#FFD92F] flex items-center justify-center text-[#14295C] shrink-0">
+                    <Phone className="w-3.5 h-3.5 fill-current" aria-hidden="true" />
+                  </div>
+                  <span className="tabular-nums">{siteContent.contact.phoneDisplay}</span>
+                </a>
+              </div>
 
               {/* Action Button */}
               <div>
@@ -84,7 +77,7 @@ export function AboutSection() {
                   size="md"
                   className="w-full sm:w-auto"
                 >
-                  Learn More About Us
+                  {siteContent.aboutText.ctaLabel}
                 </Button>
               </div>
             </div>

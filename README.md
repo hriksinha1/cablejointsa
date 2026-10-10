@@ -1,135 +1,94 @@
-# Cablejointsa – Electrical Services Landing Page
+# Cablejointsa – Electrical Services Landing Page (Riyadh, Saudi Arabia)
 
-A complete, production-quality single-page landing site for **Cablejointsa**, built with React, Vite, and Tailwind CSS. Configured for instantaneous, zero-configuration deployment to Vercel.
-
----
-
-## ⚡ Features & Visual Architecture
-
-- **Faithful Industrial Layout**: Matches the split composition hero with floating status chips, double ticker strips, vertical/horizontal service selector tabs, testimonial carousel, custom validated contact form, single-expand FAQ accordion, and safety editorial articles.
-- **Strict Brand Integrity**: Uniform "Cablejointsa" brand presence everywhere, display typography in Bebas Neue, UI and body in Inter Variable, and an oversized cropped watermark in the footer.
-- **Factual Honesty**: Sample content indicators enabled by default (`SHOW_DEMO_NOTES = true`) under metrics, ratings, and testimonials. No unsupported licensing, insurance, or 24/7 guarantees in default copy.
-- **Accessibility & Contrast**: Built to WCAG AA specifications (4.5:1 minimum text contrast, visible focus rings, native dialog disclosures, keyboard navigation for tabs/accordions/carousel, and `prefers-reduced-motion` compliance).
-- **Zero External Network Dependencies**: Self-contained client-side architecture with mock submission API and graceful branded fallbacks for all image slots.
+A production-quality, responsive single-page landing site for **Cablejointsa**, providing residential and commercial electrical services in Riyadh, Saudi Arabia. Built with React, Vite, Tailwind CSS, Bebas Neue (display typography) and Inter (body typography).
 
 ---
 
-## 🚀 Getting Started
+## ⚡ Core Business Information & Source of Truth
 
-### 1. Prerequisites
-- Node.js 18+ installed on your machine.
+- **Brand**: Cablejointsa
+- **Location**: Riyadh, Saudi Arabia
+- **Physical Address**: Malaz, Riyadh, Saudi Arabia 12831
+- **Display Phone**: `0570477234`
+- **Click-to-Call Link**: `tel:+966570477234`
+- **Instagram**: [https://www.instagram.com/cablejointsa/](https://www.instagram.com/cablejointsa/) (`@cablejointsa`)
+- **Facebook**: [https://www.facebook.com/people/The-saif-ahmed/100065301078114/#](https://www.facebook.com/people/The-saif-ahmed/100065301078114/#)
+- **Canonical Web URL**: `https://cablejointsa.vercel.app/`
+- **Emergency Dispatch (Saudi Arabia)**: Saudi Civil Defense on `998`
 
-### 2. Local Installation
+---
+
+## 🛠️ Content Architecture & Single Source of Truth
+
+All business facts, copy blocks, phone numbers, addresses, social channels, and feature toggles reside in **`src/data/siteContent.js`**. This module is pure ESM data without browser-specific runtime dependencies so that build tools, Vite plugins, and node verification scripts can import it directly.
+
+### 1. Editing Contact & Location Details
+In `src/data/siteContent.js`:
+- **Phone**: Update `contact.phoneDisplay` (e.g. `"0570477234"`) and `contact.phoneTel` (e.g. `"+966570477234"`). Every phone component derives its `href` via `buildTelHref()`.
+- **Address**: Edit `contact.address.district`, `contact.address.city`, `contact.address.postalCode`, and `contact.address.full`. Google Maps search links are generated automatically via `buildMapsUrl()`.
+- **Social Links**: Update `socialLinks.instagram` and `socialLinks.facebook`. Only platforms with a defined URL are rendered.
+
+### 2. Adding Verified Email or Working Hours Later
+By design, email and hours are omitted when `null`—no "N/A" or placeholder cards are displayed.
+To enable them once verified by the business owner:
+- **Email**: Set `contact.email: "info@cablejointsa.com"` (or similar). An Email `ContactInfoCard` will automatically appear in the Contact section.
+- **Working Hours**: Set `contact.hours: "Sat – Thu: 8:00 AM – 8:00 PM"` (or similar). A Working Hours card will automatically appear.
+
+### 3. Toggling Feature Flags
+In `src/data/siteContent.js`:
+- **`features.testimonials`**:
+  - `true` (default): Displays customer review carousel clearly labelled with "Sample review" layout notices.
+  - `false`: Completely hides the Testimonials section from the landing page.
+- **`forms.deliveryMode`**:
+  - `"demo"` (default): Shows an honest notice that online submissions are in demonstration mode and directs urgent visitors to call `0570477234`.
+  - `"live"`: Displays a live confirmation message upon form submission when connected to an active backend.
+
+---
+
+## 🔍 Content Verification & Quality Checks
+
+Run the automated content integrity audit to verify that no forbidden tokens (such as placeholder phones, generic emails, unverified statistics, or arbitrary social URLs) exist anywhere in the codebase:
+
 ```bash
-# Install dependencies
-npm install
+# Run the automated content audit
+npm run content:check
 
-# Start the development server
+# Run production build
+npm run build
+```
+
+The script `scripts/check-content.mjs` verifies:
+1. Zero occurrences of `(555)`, `010-0199`, `example.com`, `hello@`, `Your business address`, `Plumbera`, `24/7`, `224K`, or unverified hour strings.
+2. Only verified profile links for Instagram and Facebook are referenced.
+3. Verification of exact required phone (`0570477234`), click-to-call (`tel:+966570477234`), and address (`Malaz, Riyadh, Saudi Arabia 12831`).
+
+---
+
+## 🌐 Local SEO & Metadata Architecture
+
+- **Client-Rendered SPA**: The application is a client-rendered React single-page app (SPA) deployed on Vercel without prerendering.
+- **Build-time Metadata & JSON-LD**: `vite.config.js` utilizes an inline plugin (`localSeoPlugin`) during `vite build` that injects:
+  - Canonical link: `https://cablejointsa.vercel.app/`
+  - Schema.org structured data (`@type: "Electrician"` LocalBusiness subtype) containing exact telephone, PostalAddress (district Malaz, city Riyadh, postalCode 12831, country SA), and sameAs social profile links.
+  - OpenGraph & Twitter summary large image metadata referencing verified local static card `/images/social/social-share-1200x630.webp`.
+- **Search Engine Directives**:
+  - `public/robots.txt`: Directs search engine crawlers and points to `sitemap.xml`.
+  - `public/sitemap.xml`: Declares canonical index URL for search indexing.
+
+---
+
+## 🚀 Development & Deployment
+
+### Local Development
+```bash
+npm install
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Production Build
-```bash
-# Build production bundle to /dist
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
----
-
-## 📂 Project Structure
-
-```text
-├── index.html                     # HTML5 entry with meta, OpenGraph tags & SVG favicon
-├── package.json                   # Build scripts & dependencies
-├── vite.config.js                 # Vite bundler configuration with Tailwind integration
-├── public/
-│   └── favicon.svg                # Branded lightning bolt favicon
-├── src/
-│   ├── App.jsx                    # Root app assembling semantic landmarks & state
-│   ├── main.jsx                   # React DOM root entry point
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Header.jsx         # Static header with desktop disclosures & mobile drawer
-│   │   │   ├── Footer.jsx         # 4-column footer, legal modals & giant watermark
-│   │   │   └── PageContainer.jsx  # Max 1240px container with responsive gutters
-│   │   ├── sections/
-│   │   │   ├── HeroSection.jsx    # Hero split layout & floating chips
-│   │   │   ├── ServiceStrip.jsx   # Continuous marquee ticker (yellow & blue)
-│   │   │   ├── IntroMetricsSection.jsx # Company metrics & video modal preview
-│   │   │   ├── AboutSection.jsx   # Quality statement, initials avatar stack & rating
-│   │   │   ├── ServicesSection.jsx # Tablist selector & featured service panel
-│   │   │   ├── TestimonialsSection.jsx # Horizontal scroll-snap carousel
-│   │   │   ├── ContactSection.jsx # Custom validated form & contact cards
-│   │   │   ├── FAQSection.jsx     # Accordion with keyboard arrow navigation
-│   │   │   ├── ArticlesSection.jsx # Alternating blog rows & modal reader
-│   │   │   └── FinalCTASection.jsx # Navy photo banner with dual CTAs
-│   │   └── ui/
-│   │       ├── Accordion.jsx      # Accessible single-expand accordion
-│   │       ├── Avatar.jsx         # Initials-based avatar & avatar stack
-│   │       ├── Button.jsx         # Unified button/link with visible focus rings
-│   │       ├── ContactInfoCard.jsx# Contact credential cards
-│   │       ├── Dialog.jsx         # Native accessible modal dialog
-│   │       ├── Eyebrow.jsx        # Outlined uppercase pill badge
-│   │       ├── ImageWithFallback.jsx # Aspect-ratio wrapper with branded fallback
-│   │       ├── Logo.jsx           # Branded lightning mark & Bebas wordmark
-│   │       ├── SectionHeading.jsx # Eyebrow + display heading pair
-│   │       ├── SocialLinks.jsx    # Inline SVG platform links
-│   │       ├── StarRating.jsx     # Yellow star rating component
-│   │       └── TestimonialCard.jsx# Testimonial review cards
-│   ├── data/
-│   │   ├── siteContent.js         # Phone, email, address, hours, metrics & copy
-│   │   ├── services.js            # Service catalog, numbers, descriptions & icons
-│   │   ├── testimonials.js        # Customer reviews, reviewer initials & roles
-│   │   ├── faqs.js                # FAQ questions and practical answers
-│   │   ├── articles.js            # Safety blog articles and full content
-│   │   └── images.js              # Centralized image slot registry
-│   ├── hooks/
-│   │   ├── useEscapeKey.js        # Escape key listener
-│   │   └── useReducedMotion.js    # Reduced motion detection
-│   ├── services/
-│   │   └── mockApi.js             # Simulated async form enquiry handler
-│   └── styles/
-│       ├── tokens.css             # Tailwind v4 theme tokens & color variables
-│       └── global.css             # Typography rules, marquee keyframes & watermark
-└── README.md
-```
-
----
-
-## 🛠️ Customization Guide
-
-### Editing Business Information & Copy
-All business information is maintained in `src/data/siteContent.js`:
-- **Phone Number**: Change `contact.phoneDisplay` and `contact.phoneTel`.
-- **Email & Address**: Update `contact.email` and `contact.address`.
-- **Hours of Operation**: Edit `workingHours` array.
-- **Social Links**: Set URLs in `socialLinks` (unpopulated links are hidden automatically).
-- **Demo Note**: Toggle `SHOW_DEMO_NOTES = false` once verified details are loaded.
-- **Video Reel**: Add your video URL to `siteContent.videoUrl` to replace the demo modal.
-
-### Replacing Images
-All imagery is registered centrally in `src/data/images.js`. Replace any slot's `url` with your own hosted asset or local file in `/public/images/`:
-- `heroBackdrop`: Industrial switchgear/breaker photo.
-- `heroPortrait`: Professional electrician in safety workwear.
-- `videoPoster`: High-resolution electrical maintenance capture.
-- `aboutMain`: Technician wiring a panel or junction box.
-- `service1` – `service5`: Photographs depicting specific residential and commercial work.
-- `faqImage`: Detailed view of electrical work.
-- `article1` – `article3`: Safety and maintenance educational photography.
-- `ctaBackground`: Wide dark industrial electrical scene.
-
----
-
-## ☁️ Deploying to Vercel
-
-1. Push your repository to GitHub, GitLab, or Bitbucket.
-2. In the [Vercel Dashboard](https://vercel.com), click **Add New Project** and import the repository.
-3. Vercel automatically detects the **Vite** framework preset:
+### Deployment on Vercel
+1. Connect your repository to Vercel.
+2. Vercel automatically detects Vite:
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
-   - **Install Command**: `npm install`
-4. Click **Deploy**. No environment variables or custom serverless configurations are required.
+3. Click **Deploy**. No additional environment variables or serverless functions are required.

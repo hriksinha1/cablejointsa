@@ -1,43 +1,47 @@
 /**
  * Frequently Asked Questions for Cablejointsa.
- * Content is factual, clear, and avoids unsupported guarantees.
+ * Answers utilize template tokens ({{services}}, {{phone}}, {{address}}, {{emergency}})
+ * to ensure synchronization with the single source of truth in siteContent.js.
  */
 
 export const faqs = [
   {
     id: "faq-1",
-    question: "What electrical services do you offer?",
-    answer:
-      "We provide residential and commercial electrical work, including circuit installation, panel maintenance and upgrades, lighting fixtures, safety inspections, troubleshooting electrical faults, and partial or whole-property rewiring.",
+    question: "Which electrical services can I enquire about?",
+    answer: "You can ask about {{services}}. If your need isn't listed, call {{phone}} and ask.",
   },
   {
     id: "faq-2",
-    question: "How do I request a quote?",
+    question: "How can I request a quote?",
     answer:
-      "You can submit our online contact form with details about your project, or give our team a call directly at (555) 010-0199. For straightforward jobs we can provide an initial ballpark estimate; for complex or rewiring projects, an on-site evaluation is arranged.",
+      "Use the enquiry form on this page or call {{phone}}. Describe the property, the work you need and your preferred timing so the team can discuss the scope with you.",
   },
   {
     id: "faq-3",
-    question: "How do I book an appointment?",
-    answer:
-      "Simply reach out through our contact form or phone line. We will discuss your timing requirements, confirm scope details, and schedule a convenient service window that works with your calendar.",
+    question: "How can I contact Cablejointsa?",
+    answer: "Call {{phone}}, send an enquiry through this page, or message us on Instagram or Facebook.",
   },
   {
     id: "faq-4",
-    question: "Which areas do you serve?",
-    answer:
-      "We serve residential communities and commercial properties throughout the local metropolitan and surrounding suburban areas. If you are uncertain whether your address falls within our service perimeter, contact us to check.",
+    question: "Where is Cablejointsa located?",
+    answer: "We're based at {{address}}.",
   },
   {
     id: "faq-5",
-    question: "What should I do if I notice burning smells, sparks or a hot outlet?",
+    question: "How do I find out whether my property is within your service area?",
     answer:
-      "Step away from the area immediately. Do not touch damaged cords or smoking switches. If it is completely safe to access your main breaker panel, shut off the breaker for that circuit. Contact a qualified electrical technician right away. If you see open flame or smoke escalation, evacuate and contact local emergency services immediately.",
+      "Share your district when you call or send an enquiry, and the team will tell you whether they can help.",
   },
   {
     id: "faq-6",
-    question: "How can I prepare for an electrician's visit?",
+    question: "What should I include when I enquire?",
     answer:
-      "Ensure clear access to your main electrical panel, circuit breakers, and any specific outlets or equipment requiring attention. Keep pets secured in another room, and make note of any specific symptoms (such as breaker tripping patterns or flickering) to discuss with the technician.",
+      "Your name and phone number, whether it's a home or a business, the district, a short description of the work or problem, and when you'd like it done.",
+  },
+  {
+    id: "faq-7",
+    question: "What should I do if I notice a possible electrical hazard?",
+    answer:
+      "If you see sparks or smoke, smell burning, or find an outlet or cable that is very hot, keep away from it. Switch off power at the main breaker only if you can do so safely, and call {{emergency}} if there is fire or immediate danger. Don't try to repair electrical faults yourself; for non-urgent issues, ask a qualified electrician or call {{phone}} to discuss.",
   },
 ];

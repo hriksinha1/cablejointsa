@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { RichText } from "./RichText";
 
 /**
- * Accessible FAQ Accordion component with single-expand state and keyboard navigation.
+ * Accessible FAQ Accordion component with single-expand state, keyboard navigation,
+ * and RichText token rendering for dynamic phone/address insertion.
  */
 export function Accordion({ items, defaultOpenId = "faq-5" }) {
   const [openId, setOpenId] = useState(defaultOpenId);
@@ -56,8 +58,10 @@ export function Accordion({ items, defaultOpenId = "faq-5" }) {
                 aria-controls={panelId}
                 onClick={() => handleToggle(item.id)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`w-full min-h-[58px] px-5 py-4 flex items-center justify-between text-left font-semibold text-[13px] sm:text-[14px] uppercase tracking-wider transition-colors duration-150 cursor-pointer select-none ${
-                  isOpen ? "text-white" : "text-[#14295C]"
+                className={`w-full min-h-[58px] px-5 py-4 flex items-center justify-between text-left font-semibold text-[13px] sm:text-[14px] uppercase tracking-wider transition-colors duration-150 cursor-pointer select-none focus-visible:outline-3 ${
+                  isOpen
+                    ? "text-white focus-visible:outline-[#FFD92F]"
+                    : "text-[#14295C] focus-visible:outline-[#1858DE]"
                 }`}
               >
                 <span className="pr-4 leading-snug">{item.question}</span>
@@ -79,10 +83,17 @@ export function Accordion({ items, defaultOpenId = "faq-5" }) {
               aria-labelledby={buttonId}
               hidden={!isOpen}
               className={`px-5 pb-5 pt-1 text-[14px] sm:text-[15px] leading-relaxed ${
-                isOpen ? "text-white/90" : "text-[#5B6475]"
+                isOpen ? "text-white" : "text-[#5B6475]"
               } ${prefersReducedMotion ? "" : "transition-all duration-200"}`}
             >
-              {item.answer}
+              {typeof item.answer === "string" ? (
+                <RichText
+                  text={item.answer}
+                  className={isOpen ? "[&_a]:text-[#FFD92F] [&_a]:underline [&_strong]:text-white" : ""}
+                />
+              ) : (
+                item.answer
+              )}
             </div>
           </div>
         );
