@@ -29,12 +29,15 @@ export function FAQSection() {
 
             <div className="rounded-[8px] overflow-hidden border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.06)] aspect-[4/3] bg-slate-100">
               <ImageWithFallback
-                src={images.faqImage.url}
+                src={images.faqImage.src}
+                srcSet={images.faqImage.srcSet}
+                sizes={images.faqImage.sizes}
                 alt={images.faqImage.alt}
                 width={images.faqImage.width}
                 height={images.faqImage.height}
                 aspectRatio="4/3"
                 objectPosition={images.faqImage.objectPosition}
+                slotKey="faqImage"
                 className="w-full h-full object-cover"
               />
             </div>

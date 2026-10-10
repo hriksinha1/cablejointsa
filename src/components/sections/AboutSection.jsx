@@ -33,12 +33,15 @@ export function AboutSection() {
           {/* Left Column (Photo: 4/3) */}
           <div className="lg:col-span-7 rounded-[8px] overflow-hidden border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.08)] bg-slate-100 flex">
             <ImageWithFallback
-              src={images.aboutMain.url}
+              src={images.aboutMain.src}
+              srcSet={images.aboutMain.srcSet}
+              sizes={images.aboutMain.sizes}
               alt={images.aboutMain.alt}
               width={images.aboutMain.width}
               height={images.aboutMain.height}
               aspectRatio="4/3"
               objectPosition={images.aboutMain.objectPosition}
+              slotKey="aboutMain"
               className="w-full h-full object-cover min-h-[300px] sm:min-h-[400px]"
             />
           </div>

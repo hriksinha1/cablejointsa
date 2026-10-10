@@ -61,13 +61,17 @@ export function HeroSection() {
               {/* (1) Backdrop Panel Image: upper 65% with cool tones */}
               <div className="absolute top-0 right-0 w-[90%] h-[70%] rounded-[8px] overflow-hidden shadow-[0_8px_24px_rgba(20,41,92,0.08)] border border-[#E1E5EB]">
                 <ImageWithFallback
-                  src={images.heroBackdrop.url}
+                  src={images.heroBackdrop.src}
+                  srcSet={images.heroBackdrop.srcSet}
+                  sizes={images.heroBackdrop.sizes}
                   alt={images.heroBackdrop.alt}
                   width={images.heroBackdrop.width}
                   height={images.heroBackdrop.height}
                   objectPosition={images.heroBackdrop.objectPosition}
                   loading="eager"
-                  fetchPriority="high"
+                  fetchPriority="auto"
+                  slotKey="heroBackdrop"
+                  decorative={true}
                   className="w-full h-full object-cover filter brightness-95"
                 />
                 <div className="absolute inset-0 bg-[#14295C]/20 pointer-events-none" />
@@ -82,13 +86,17 @@ export function HeroSection() {
               {/* (3) Foreground Portrait: Electrician in hard hat and vest */}
               <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 w-[82%] h-[82%] rounded-[8px] overflow-hidden shadow-2xl border-2 border-white bg-slate-100">
                 <ImageWithFallback
-                  src={images.heroPortrait.url}
+                  src={images.heroPortrait.src}
+                  srcSet={images.heroPortrait.srcSet}
+                  sizes={images.heroPortrait.sizes}
                   alt={images.heroPortrait.alt}
                   width={images.heroPortrait.width}
                   height={images.heroPortrait.height}
                   objectPosition={images.heroPortrait.objectPosition}
                   loading="eager"
                   fetchPriority="high"
+                  slotKey="heroPortrait"
+                  decorative={false}
                   className="w-full h-full object-cover"
                 />
               </div>

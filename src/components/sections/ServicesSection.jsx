@@ -110,6 +110,13 @@ export function ServicesSection({ selectedServiceId, onSelectService, onBookServ
                     aria-controls={panelId}
                     tabIndex={isActive ? 0 : -1}
                     onClick={() => onSelectService(svc.id)}
+                    onMouseEnter={() => {
+                      const targetImg = images[svc.imageSlot]?.src;
+                      if (targetImg) {
+                        const preload = new Image();
+                        preload.src = targetImg;
+                      }
+                    }}
                     onKeyDown={(e) => handleKeyDown(e, idx)}
                     className={`shrink-0 lg:w-full min-h-[46px] lg:min-h-[52px] px-4 py-2.5 rounded-[4px] text-left text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider transition-colors duration-150 cursor-pointer flex items-center justify-between border-b lg:border-b-transparent focus-visible:outline-3 focus-visible:outline-[#FFD92F] ${
                       isActive
@@ -172,11 +179,15 @@ export function ServicesSection({ selectedServiceId, onSelectService, onBookServ
                 {/* Right Panel Image */}
                 <div className="md:col-span-5 rounded-[8px] overflow-hidden border border-white/15 aspect-[4/5] bg-[#14295C] relative group">
                   <ImageWithFallback
-                    src={activeImageData.url}
+                    src={activeImageData.src}
+                    srcSet={activeImageData.srcSet}
+                    sizes={activeImageData.sizes}
                     alt={activeImageData.alt}
                     width={activeImageData.width}
                     height={activeImageData.height}
+                    aspectRatio={activeImageData.aspectRatio}
                     objectPosition={activeImageData.objectPosition}
+                    slotKey={activeService.imageSlot}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
                   />
                   <div className="absolute inset-0 bg-[#14295C]/20 pointer-events-none" />

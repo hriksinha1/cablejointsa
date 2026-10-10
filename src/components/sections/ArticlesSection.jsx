@@ -64,12 +64,15 @@ export function ArticlesSection({ selectedArticle, onSelectArticle, onCloseArtic
                   } rounded-[8px] overflow-hidden border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.06)] aspect-[3/2] bg-slate-100`}
                 >
                   <ImageWithFallback
-                    src={articleImage.url}
+                    src={articleImage.src}
+                    srcSet={articleImage.srcSet}
+                    sizes={articleImage.sizes}
                     alt={articleImage.alt}
                     width={articleImage.width}
                     height={articleImage.height}
                     aspectRatio="3/2"
                     objectPosition={articleImage.objectPosition}
+                    slotKey={article.imageSlot}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-102"
                   />
                 </div>

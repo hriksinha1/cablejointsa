@@ -63,11 +63,14 @@ export function IntroMetricsSection() {
         {/* Video Thumbnail Preview */}
         <div className="relative w-full rounded-[8px] overflow-hidden aspect-[16/9] md:aspect-[5/2] border border-[#E1E5EB] shadow-[0_8px_24px_rgba(20,41,92,0.08)] group bg-[#14295C]">
           <ImageWithFallback
-            src={images.videoPoster.url}
+            src={images.videoPoster.src}
+            srcSet={images.videoPoster.srcSet}
+            sizes={images.videoPoster.sizes}
             alt={images.videoPoster.alt}
             width={images.videoPoster.width}
             height={images.videoPoster.height}
             objectPosition={images.videoPoster.objectPosition}
+            slotKey="videoPoster"
             className="w-full h-full object-cover filter brightness-90 group-hover:scale-102 transition-transform duration-500"
           />
 
@@ -94,7 +97,7 @@ export function IntroMetricsSection() {
           {siteContent.videoUrl ? (
             <video
               src={siteContent.videoUrl}
-              poster={images.videoPoster.url}
+              poster={images.videoPoster.src}
               controls
               className="w-full rounded-[4px] aspect-video bg-black"
             >

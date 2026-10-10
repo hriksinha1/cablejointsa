@@ -16,16 +16,20 @@ export function FinalCTASection() {
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
-          src={images.ctaBackground.url}
+          src={images.ctaBackground.src}
+          srcSet={images.ctaBackground.srcSet}
+          sizes={images.ctaBackground.sizes}
           alt={images.ctaBackground.alt}
           width={images.ctaBackground.width}
           height={images.ctaBackground.height}
           objectPosition={images.ctaBackground.objectPosition}
-          className="w-full h-full object-cover filter brightness-75"
+          slotKey="ctaBackground"
+          decorative={true}
+          className="w-full h-full object-cover"
         />
-        {/* Navy Overlay ensuring WCAG AAA 4.5:1+ contrast */}
+        {/* Navy Overlay ensuring WCAG AAA 4.5:1+ contrast while keeping photo visible */}
         <div
-          className="absolute inset-0 bg-[#14295C]/90 backdrop-blur-[2px]"
+          className="absolute inset-0 bg-[#14295C]/75"
           aria-hidden="true"
         />
       </div>

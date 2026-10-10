@@ -1,0 +1,198 @@
+[
+  {
+    "key": "heroBackdrop",
+    "slot": "heroBackdrop",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:TWAM_Ref-_TWCMS-M4424_(21613295362).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/TWAM_Ref-_TWCMS-M4424_%2821613295362%29.jpg",
+    "photographer": "Tyne & Wear Archives & Museums",
+    "license": "Public Domain / No restrictions",
+    "description": "Industrial electrical distribution switchgear and circuit controls",
+    "outputs": [
+      { "path": "public/images/hero/hero-backdrop-1600.webp", "width": 1600, "height": 1000, "fit": "cover" },
+      { "path": "public/images/hero/hero-backdrop-1200.webp", "width": 1200, "height": 750, "fit": "cover" },
+      { "path": "public/images/hero/hero-backdrop-800.webp", "width": 800, "height": 500, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "heroPortrait",
+    "slot": "heroPortrait",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Electrical_OSHA_required_gear.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Electrical_OSHA_required_gear.jpg",
+    "photographer": "Sacbee233",
+    "license": "CC0 1.0 Universal Public Domain",
+    "description": "Professional electrician with hard hat, protective face shield and high-voltage work gear",
+    "outputs": [
+      { "path": "public/images/hero/hero-portrait-1200.webp", "width": 1200, "height": 1500, "fit": "cover", "position": "top" },
+      { "path": "public/images/hero/hero-portrait-800.webp", "width": 800, "height": 1000, "fit": "cover", "position": "top" },
+      { "path": "public/images/hero/hero-portrait-480.webp", "width": 480, "height": 600, "fit": "cover", "position": "top" }
+    ]
+  },
+  {
+    "key": "videoPoster",
+    "slot": "videoPoster",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Electrician_Working.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/37/Electrician_Working.jpg",
+    "photographer": "Editor B",
+    "license": "CC BY 2.0",
+    "description": "Electrician connecting service panel wiring at residential installation",
+    "outputs": [
+      { "path": "public/images/about/video-poster-1400.webp", "width": 1400, "height": 560, "fit": "cover", "position": "center" },
+      { "path": "public/images/about/video-poster-800.webp", "width": 800, "height": 320, "fit": "cover", "position": "center" }
+    ]
+  },
+  {
+    "key": "aboutMain",
+    "slot": "aboutMain",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Pueblo_Chemical_Agent-Destruction_Pilot_Plant_Chiller_Water_System_(9609814918).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Pueblo_Chemical_Agent-Destruction_Pilot_Plant_Chiller_Water_System_%289609814918%29.jpg",
+    "photographer": "PEO ACWA",
+    "license": "CC BY 2.0",
+    "description": "Master electrician with safety glasses inspecting facility electrical panel wiring",
+    "outputs": [
+      { "path": "public/images/about/about-main-1200.webp", "width": 1200, "height": 900, "fit": "cover" },
+      { "path": "public/images/about/about-main-800.webp", "width": 800, "height": 600, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "service1",
+    "slot": "service-residential",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Electrician_Mike_Hughes_Installing_Meter_Base.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Electrician_Mike_Hughes_Installing_Meter_Base.jpg",
+    "photographer": "Team Massachusetts 4D Home",
+    "license": "CC BY 2.0",
+    "description": "Electrician installing new residential electrical meter socket and exterior distribution",
+    "outputs": [
+      { "path": "public/images/services/service-residential-1000.webp", "width": 1000, "height": 1250, "fit": "cover" },
+      { "path": "public/images/services/service-residential-600.webp", "width": 600, "height": 750, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "service2",
+    "slot": "service-commercial",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Switchboard_1_TMW.agr.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Switchboard_1_TMW.agr.jpg",
+    "photographer": "ArnoldR",
+    "license": "CC BY-SA 4.0",
+    "description": "Commercial electrical distribution switchboard and breaker arrays",
+    "outputs": [
+      { "path": "public/images/services/service-commercial-1000.webp", "width": 1000, "height": 1250, "fit": "cover" },
+      { "path": "public/images/services/service-commercial-600.webp", "width": 600, "height": 750, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "service3",
+    "slot": "service-repair",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/2017_Cyfrowy_miernik_uniwersalny.jpg",
+    "photographer": "Jacek Halicki",
+    "license": "CC BY-SA 4.0",
+    "description": "Digital multimeter testing probes diagnosing electrical circuits",
+    "outputs": [
+      { "path": "public/images/services/service-repair-1000.webp", "width": 1000, "height": 1250, "fit": "cover" },
+      { "path": "public/images/services/service-repair-600.webp", "width": 600, "height": 750, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "service4",
+    "slot": "service-wiring",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Pt_tupper_cable_spreading_room_unit2.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Pt_tupper_cable_spreading_room_unit2.jpg",
+    "photographer": "Achim Hering",
+    "license": "CC BY 3.0",
+    "description": "Heavy electrical cable trays and organized branch circuit cabling conduits",
+    "outputs": [
+      { "path": "public/images/services/service-wiring-1000.webp", "width": 1000, "height": 1250, "fit": "cover" },
+      { "path": "public/images/services/service-wiring-600.webp", "width": 600, "height": 750, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "service5",
+    "slot": "service-inspection",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:110317_F_DU133_015_(5543643257).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/39/110317_F_DU133_015_%285543643257%29.jpg",
+    "photographer": "176th Wing Alaska Air National Guard",
+    "license": "CC BY 2.0",
+    "description": "Electrician performing safety inspection and breaker servicing in uniform",
+    "outputs": [
+      { "path": "public/images/services/service-inspection-1000.webp", "width": 1000, "height": 1250, "fit": "cover" },
+      { "path": "public/images/services/service-inspection-600.webp", "width": 600, "height": 750, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "faqImage",
+    "slot": "faqImage",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Electricians_fixing_electricity_meter.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Electricians_fixing_electricity_meter.jpg",
+    "photographer": "Jeromi Mikhael",
+    "license": "CC0 1.0 Universal Public Domain",
+    "description": "Technicians fixing electricity meter enclosure and connection cables",
+    "outputs": [
+      { "path": "public/images/faq/faq-image-1000.webp", "width": 1000, "height": 750, "fit": "cover" },
+      { "path": "public/images/faq/faq-image-600.webp", "width": 600, "height": 450, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "article1",
+    "slot": "article-home-safety",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Small_house_distribution_panel_1.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Small_house_distribution_panel_1.jpg",
+    "photographer": "Retired electrician",
+    "license": "CC0 1.0 Universal Public Domain",
+    "description": "Residential electrical breaker panel with GFCI and circuit protection",
+    "outputs": [
+      { "path": "public/images/articles/article-home-safety-1000.webp", "width": 1000, "height": 667, "fit": "cover" },
+      { "path": "public/images/articles/article-home-safety-600.webp", "width": 600, "height": 400, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "article2",
+    "slot": "article-maintenance",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Blue_Grass_Chemical_Agent-Destruction_Pilot_Plant_Utility_Building_(10476535316).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Blue_Grass_Chemical_Agent-Destruction_Pilot_Plant_Utility_Building_%2810476535316%29.jpg",
+    "photographer": "PEO ACWA",
+    "license": "CC BY 2.0",
+    "description": "Electrician performing scheduled maintenance inside utility building electrical cabinets",
+    "outputs": [
+      { "path": "public/images/articles/article-maintenance-1000.webp", "width": 1000, "height": 667, "fit": "cover" },
+      { "path": "public/images/articles/article-maintenance-600.webp", "width": 600, "height": 400, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "article3",
+    "slot": "article-warning-signs",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:Exposed_Wall_Wiring_and_Breaker_Box.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/Exposed_Wall_Wiring_and_Breaker_Box.jpg",
+    "photographer": "Paul The Writer",
+    "license": "CC0 1.0 Universal Public Domain",
+    "description": "Indoor electrical wiring and open circuit breaker enclosure under inspection",
+    "outputs": [
+      { "path": "public/images/articles/article-warning-signs-1000.webp", "width": 1000, "height": 667, "fit": "cover" },
+      { "path": "public/images/articles/article-warning-signs-600.webp", "width": 600, "height": 400, "fit": "cover" }
+    ]
+  },
+  {
+    "key": "ctaBackground",
+    "slot": "ctaBackground",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_090609-N-2128R-023_Construction_Electrician_1st_Class_Alan_Cole_and_Construction_Electrician_3rd_Class_Kevin_Latimer_install_exterior_lights_at_Camp_Moreell,_Kuwait.jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/US_Navy_090609-N-2128R-023_Construction_Electrician_1st_Class_Alan_Cole_and_Construction_Electrician_3rd_Class_Kevin_Latimer_install_exterior_lights_at_Camp_Moreell%2C_Kuwait.jpg",
+    "photographer": "U.S. Navy photo by MC1 Alan Cole",
+    "license": "Public Domain",
+    "description": "Electricians working on electrical installation in industrial setting",
+    "outputs": [
+      { "path": "public/images/cta/cta-background-1600.webp", "width": 1600, "height": 685, "fit": "cover", "position": "top" },
+      { "path": "public/images/cta/cta-background-1200.webp", "width": 1200, "height": 514, "fit": "cover", "position": "top" }
+    ]
+  },
+  {
+    "key": "socialShare",
+    "slot": "socialShare",
+    "sourcePageUrl": "https://commons.wikimedia.org/wiki/File:TWAM_Ref-_TWCMS-M4424_(21613295362).jpg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/TWAM_Ref-_TWCMS-M4424_%2821613295362%29.jpg",
+    "photographer": "Tyne & Wear Archives & Museums",
+    "license": "Public Domain / No restrictions",
+    "description": "OpenGraph and Twitter Card social card share banner",
+    "outputs": [
+      { "path": "public/images/social/social-share-1200x630.webp", "width": 1200, "height": 630, "fit": "cover" }
+    ]
+  }
+]
