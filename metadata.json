@@ -1,0 +1,6 @@
+{
+  "name": "Cablejointsa - Electrical Services",
+  "description": "Professional electrical services for homes and businesses, from quick repairs to full installations with a focus on safety, quality, and reliability.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

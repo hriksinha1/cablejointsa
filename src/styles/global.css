@@ -1,0 +1,131 @@
+@import "./tokens.css";
+
+/* Base Accessibility & Smooth Scroll */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+  color: #303746;
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Display Font Heading Setup */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis-weight: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Headings rhythm */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis-weight: none;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Sections scroll margin for anchors */
+section[id], div[id] {
+  scroll-margin-top: 88px;
+}
+
+/* Custom focus ring */
+:focus-visible {
+  outline: 3px solid #1858DE;
+  outline-offset: 2px;
+}
+
+.focus-ring-yellow:focus-visible {
+  outline: 3px solid #FFD92F !important;
+  outline-offset: 2px;
+}
+
+/* Continuous Marquee Animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll-reverse 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .animate-marquee,
+.marquee-container:focus-within .animate-marquee,
+.marquee-container[data-paused="true"] .animate-marquee,
+.marquee-container:hover .animate-marquee-reverse,
+.marquee-container:focus-within .animate-marquee-reverse,
+.marquee-container[data-paused="true"] .animate-marquee-reverse {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+    transform: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .marquee-duplicate {
+    display: none !important;
+  }
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Giant Footer Watermark */
+.footer-watermark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis-weight: none;
+  text-transform: uppercase;
+  color: #ECEFF3;
+  line-height: 0.8;
+  font-size: clamp(3.5rem, 18vw, 15rem);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  user-select: none;
+  pointer-events: none;
+}

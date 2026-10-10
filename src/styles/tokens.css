@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "@fontsource/bebas-neue";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --color-navy: #14295C;
+  --color-navy-panel: #1B357A;
+  --color-electric-blue: #1858DE;
+  --color-blue-hover: #1348B8;
+  --color-safety-yellow: #FFD92F;
+  --color-yellow-hover: #F2C814;
+  --color-light-gray: #F4F5F7;
+  --color-charcoal: #303746;
+  --color-muted-text: #697386;
+  --color-muted-dark: #5B6475;
+  --color-border-line: #E1E5EB;
+
+  --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --font-body: "Inter Variable", Inter, system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-soft-card: 0 1px 2px rgba(20, 41, 92, 0.06), 0 8px 24px rgba(20, 41, 92, 0.08);
+  --shadow-chip: 0 2px 6px rgba(20, 41, 92, 0.12);
+}
+
+:root {
+  --color-navy: #14295C;
+  --color-navy-panel: #1B357A;
+  --color-electric-blue: #1858DE;
+  --color-blue-hover: #1348B8;
+  --color-safety-yellow: #FFD92F;
+  --color-yellow-hover: #F2C814;
+  --color-light-gray: #F4F5F7;
+  --color-charcoal: #303746;
+  --color-muted-text: #697386;
+  --color-muted-dark: #5B6475;
+  --color-border-line: #E1E5EB;
+}
